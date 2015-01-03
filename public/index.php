@@ -1,22 +1,39 @@
 <?php
 include_once '../app/Bootstrap.php';
-$bootstrap = new \minevents\app\Bootstrap();
-use minevents\app\classes as classes;
+$bootstrap = new \inceptio\app\Bootstrap();
 
-$rechten = new classes\RechtenConstants();
-$reflection = new ReflectionClass($rechten);
-$recht_array = $reflection->getConstants();
-$login = new classes\Loginsysteem();
-$gebruiker = new classes\Gebruiker(new classes\db\DbGebruiker());
-$recht = new classes\GebruikerRecht();
-if (!$login->isloggedin()) {
-    header("Location: login_scherm.php");
-    exit;
-} else {
-include_once 'includes/header.php';
+use inceptio\app\classes\User as User;
 
-include_once 'includes/content.php';
+/**
+ * Test classes here
+ * 
+ */
+$user = new User();
 
-include_once 'includes/footer.php';
+$user->setUserId(33);
+$user->setUserName("Name");
+$user->setUserPassword("test123");
+$user->setUserType(1);
 
-}
+$user->addUser();
+
+$test = $user->viewUser();
+echo "View user dump";
+var_dump($test);
+echo "<br />";
+$user->setUserName("Name2");
+
+$user->editUser();
+
+$test2 = $user->viewAllUsers();
+echo "View all users dump";
+var_dump($test2);
+echo "<br />";
+
+
+$test3 = $user->login();
+echo "Login dump";
+var_dump($test3);
+echo "<br />";
+$user->deleteUser();
+//*/

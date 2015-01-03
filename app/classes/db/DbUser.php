@@ -1,6 +1,8 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/User.php');
-require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Database.php');
+
+namespace inceptio\app\classes\db;
+
+use inceptio\app\classes\db\Database as Database;
 
 /**
  * @access public
@@ -8,73 +10,151 @@ require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Database.php');
  * @package Scansysteem
  */
 class DbUser extends Database {
-	/**
-	 * @AttributeType Scansysteem.User
-	 */
-	private $user;
-	/**
-	 * @AttributeType Scansysteem.Database
-	 */
-	private $db;
 
-	/**
-	 * @access public
-	 */
-	public function __construct() {
-		// Not yet implemented
-	}
+    /**
+     * @AttributeType Scansysteem.Database
+     */
+    private $db;
 
-	/**
-	 * @access public
-	 * @param string $user_name
-	 * @param string $user_password
-	 * @param int $user_type
-	 * @ParamType $user_name string
-	 * @ParamType $user_password string
-	 * @ParamType $user_type int
-	 */
-	public function addUser($_user_name, $_user_password, $_user_type) {
-		// Not yet implemented
-	}
+    /**
+     * @access public
+     */
+    public function __construct() {
+        $this->db = new Database();
+    }
 
-	/**
-	 * @access public
-	 * @param int $user_id
-	 * @ParamType $user_id int
-	 */
-	public function deleteUser($_user_id) {
-		// Not yet implemented
-	}
+    /**
+     * @access public
+     * @param string $user_name
+     * @param string $user_password
+     * @param int $user_type
+     * @ParamType $user_name string
+     * @ParamType $user_password string
+     * @ParamType $user_type int
+     */
+    public function addUser($user_name, $user_password, $user_type) {
+        //build query
+        $query = "INSERT INTO  `inceptio`.`users` (
+                `user_id` ,
+                `user_name` ,
+                `user_password` ,
+                `user_type`
+                )
+                  VALUES (
+                NULL, 
+                '" . mysql_real_escape_string($user_name) . "',
+                '" . mysql_real_escape_string($user_password) . "',
+                '" . mysql_real_escape_string($user_type) . "'
+                );";
+        
+        //execute query
+        if (!$this->db->dbquery($query)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-	/**
-	 * @access public
-	 * @param int $user_id
-	 * @ParamType $user_id int
-	 */
-	public function viewUser($_user_id) {
-		// Not yet implemented
-	}
+    /**
+     * @access public
+     * @param int $user_id
+     * @ParamType $user_id int
+     */
+    public function deleteUser($user_id) {
+        //build query
+        $query = "DELETE FROM `users` WHERE user_id = " . $user_id;
+        //execute query
+        if (!$this->db->dbquery($query)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-	/**
-	 * @access public
-	 * @param int $user_id
-	 * @param string $user_name
-	 * @param string $user_password
-	 * @param int $user_type
-	 * @ParamType $user_id int
-	 * @ParamType $user_name string
-	 * @ParamType $user_password string
-	 * @ParamType $user_type int
-	 */
-	public function editUser($_user_id, $_user_name, $_user_password, $_user_type) {
-		// Not yet implemented
-	}
+    /**
+     * @access public
+     * @param int $user_id
+     * @ParamType $user_id int
+     */
+    public function viewUser($user_id) {
+        //build query
+        $query = "SELECT * FROM `users` WHERE user_id = " . $user_id;
+        
+        // fetch query
+        $data = $this->db->dbFetchArray($query);
+        
+        // check data
+        if ( $data == NULL) {
+            return FALSE;
+        }
+        return $data;
+    }
 
-	/**
-	 * @access public
-	 */
-	public function viewAllUsers() {
-		// Not yet implemented
-	}
+    /**
+     * @access public
+     * @param int $user_id
+     * @param string $user_name
+     * @param string $user_password
+     * @param int $user_type
+     * @ParamType $user_id int
+     * @ParamType $user_name string
+     * @ParamType $user_password string
+     * @ParamType $user_type int
+     */
+    public function editUser($user_id, $user_name, $user_password, $user_type) {
+        //build query
+        $query = "UPDATE `users` SET `user_name` = '".$user_name."', `user_password` = '".$user_password."', `user_type` = '".$user_type."' WHERE `users`.`user_id` = ".$user_id.";";
+        
+        //execute query
+        if (!$this->db->dbquery($query)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * @access public
+     */
+    public function viewAllUsers() {
+        //build query
+        $query = "SELECT * FROM `users` ORDER BY `user_name` ASC";
+        
+        // check for data
+        if (!$this->db->dbquery($query)) {
+            return false;
+        }
+        // fetch data
+        if(!($result = $this->db->dbFetchAll())){
+            // set error.
+            echo TXT_NO_DATA;
+            return FALSE;
+        }
+        // return
+        return $result;
+    }
+
+    /**
+     * @access public
+     * @param string $user_name
+     * @param string $user_password
+     */
+    public function login($user_name, $user_password) {
+        // build query
+        $sql = "SELECT * FROM users WHERE user_name = '$user_name' AND user_password = '$user_password' LIMIT 1";
+        // execute query, fill into $results
+        $result = $this->db->dbquery($sql);
+
+        //check if any results
+        $count = mysqli_num_rows($result);
+        
+        if ($count == 1) {
+            return TRUE;
+        }
+        
+        return false;
+    }
+
 }
+
 ?>

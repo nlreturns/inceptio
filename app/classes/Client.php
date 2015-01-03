@@ -23,6 +23,10 @@ class Client extends DbClient {
 	 * @AttributeType string
 	 */
 	private $client_phone;
+	/**
+	 * @AttributeType Scansysteem.DbClient
+	 */
+	private $client_db;
 
 	/**
 	 * @access public

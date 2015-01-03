@@ -1,5 +1,4 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Client.php');
 require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Database.php');
 
 /**
@@ -8,10 +7,6 @@ require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Database.php');
  * @package Scansysteem
  */
 class DbClient extends Database {
-	/**
-	 * @AttributeType Scansysteem.Client
-	 */
-	private $client;
 	/**
 	 * @AttributeType Scansysteem.Database
 	 */

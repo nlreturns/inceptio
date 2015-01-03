@@ -12,8 +12,8 @@
  * 0.3  - 30.10.2014  Jan-Willem Dooms <janwillem.dooms@gmail.com>  MySQL to MySQLi conversion
  *
  */
-namespace minevents\app\classes\db;
-use minevents\app\classes\Error;
+namespace inceptio\app\classes\db;
+use inceptio\app\classes\Error;
 
 class Database {
 

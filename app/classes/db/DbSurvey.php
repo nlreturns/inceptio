@@ -1,5 +1,4 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Survey.php');
 require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Database.php');
 require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Client.php');
 require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/User.php');
@@ -10,10 +9,6 @@ require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/User.php');
  * @package Scansysteem
  */
 class DbSurvey extends Database {
-	/**
-	 * @AttributeType Scansysteem.Survey
-	 */
-	private $survey;
 	/**
 	 * @AttributeType Scansysteem.Database
 	 */
@@ -35,7 +30,7 @@ class DbSurvey extends Database {
 	 * @ParamType $chapter_id array
 	 * @ParamType $author_id Scansysteem.User
 	 */
-	public function addSurvey(Client $_client_id, array_6 $_chapter_id, User $_author_id) {
+	public function addSurvey(Client $_client_id, array_5 $_chapter_id, User $_author_id) {
 		// Not yet implemented
 	}
 
@@ -57,7 +52,7 @@ class DbSurvey extends Database {
 	 * @ParamType $chapter_id array
 	 * @ParamType $author_id Scansysteem.User
 	 */
-	public function editSurvey(Client $_client_id, array_7 $_chapter_id, User $_author_id) {
+	public function editSurvey(Client $_client_id, array_6 $_chapter_id, User $_author_id) {
 		// Not yet implemented
 	}
 

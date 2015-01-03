@@ -1,5 +1,4 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Report.php');
 require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Database.php');
 
 /**
@@ -7,11 +6,7 @@ require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Database.php');
  * @author janwillem
  * @package Scansysteem
  */
-class ReportDb extends Database {
-	/**
-	 * @AttributeType Scansysteem.Report
-	 */
-	private $report;
+class DbReport extends Database {
 	/**
 	 * @AttributeType Scansysteem.Database
 	 */

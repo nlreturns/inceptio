@@ -1,6 +1,6 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Question.php');
 require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/DbChapter.php');
+require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Question.php');
 
 /**
  * @access public
@@ -24,6 +24,10 @@ class Chapter extends Question {
 	 * @AttributeType string
 	 */
 	private $chapter_description;
+	/**
+	 * @AttributeType Scansysteem.DbChapter
+	 */
+	private $chapter_db;
 
 	/**
 	 * @access public
@@ -39,7 +43,7 @@ class Chapter extends Question {
 	 * @ParamType chapter_id array
 	 * @ReturnType void
 	 */
-	public function setChapterId(array_12 $chapter_id) {
+	public function setChapterId(array_11 $chapter_id) {
 		// Not yet implemented
 	}
 
@@ -75,7 +79,7 @@ class Chapter extends Question {
 	 * @ParamType question_id array
 	 * @ReturnType void
 	 */
-	public function setQuestionId(array_13 $question_id) {
+	public function setQuestionId(array_12 $question_id) {
 		// Not yet implemented
 	}
 

@@ -1,7 +1,7 @@
 <?php
 require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Question.php');
-require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Report.php');
 require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/DbAnswer.php');
+require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Report.php');
 
 /**
  * @access public
@@ -25,6 +25,10 @@ class Answer extends Report {
 	 * @AttributeType string
 	 */
 	private $answer_value;
+	/**
+	 * @AttributeType Scansysteem.DbAnswer
+	 */
+	private $answer_db;
 
 	/**
 	 * @access public
@@ -58,7 +62,7 @@ class Answer extends Report {
 	 * @ParamType question_id array
 	 * @ReturnType void
 	 */
-	public function setQuestionId(array_18 $question_id) {
+	public function setQuestionId(array_21 $question_id) {
 		// Not yet implemented
 	}
 

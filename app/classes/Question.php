@@ -1,7 +1,7 @@
 <?php
+require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/DbQuestion.php');
 require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/QuestionType.php');
 require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Answer.php');
-require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/DbQuestion.php');
 
 /**
  * @access public
@@ -21,6 +21,10 @@ class Question extends QuestionType {
 	 * @AttributeType int
 	 */
 	private $questionType_id;
+	/**
+	 * @AttributeType Scansysteem.DbQuestion
+	 */
+	private $question_db;
 
 	/**
 	 * @access public
@@ -36,7 +40,7 @@ class Question extends QuestionType {
 	 * @ParamType question_id array
 	 * @ReturnType void
 	 */
-	public function setQuestionId(array_15 $question_id) {
+	public function setQuestionId(array_16 $question_id) {
 		// Not yet implemented
 	}
 

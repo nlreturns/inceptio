@@ -1,12 +1,12 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/ReportDb.php');
+require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/DbReport.php');
 
 /**
  * @access public
  * @author janwillem
  * @package Scansysteem
  */
-class Report extends ReportDb {
+class Report extends DbReport {
 	/**
 	 * @AttributeType int
 	 */
@@ -19,6 +19,10 @@ class Report extends ReportDb {
 	 * @AttributeType string
 	 */
 	private $report_output;
+	/**
+	 * @AttributeType Scansysteem.DbReport
+	 */
+	private $report_db;
 
 	/**
 	 * @access public

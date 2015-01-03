@@ -30,6 +30,10 @@ class Survey extends DbSurvey {
 	 * @AttributeType Scansysteem.User
 	 */
 	private $author_id;
+	/**
+	 * @AttributeType Scansysteem.DbSurvey
+	 */
+	private $survey_db;
 
 	/**
 	 * @access public

@@ -12,10 +12,6 @@ class DbChapter extends Database {
 	 * @AttributeType Scansysteem.Chapter
 	 */
 	private $chapter;
-	/**
-	 * @AttributeType Scansysteem.Database
-	 */
-	private $db;
 
 	/**
 	 * @access public
@@ -33,7 +29,7 @@ class DbChapter extends Database {
 	 * @ParamType $question_id array
 	 * @ParamType $chapter_description string
 	 */
-	public function addChapter($_chapter_name, array_28 $_question_id, $_chapter_description) {
+	public function addChapter($_chapter_name, array_27 $_question_id, $_chapter_description) {
 		// Not yet implemented
 	}
 
@@ -55,7 +51,7 @@ class DbChapter extends Database {
 	 * @ParamType $question_id array
 	 * @ParamType $chapter_description string
 	 */
-	public function editChapter($_chapter_name, array_29 $_question_id, $_chapter_description) {
+	public function editChapter($_chapter_name, array_28 $_question_id, $_chapter_description) {
 		// Not yet implemented
 	}
 

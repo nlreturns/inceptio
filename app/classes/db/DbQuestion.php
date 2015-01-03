@@ -1,5 +1,4 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Question.php');
 require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Database.php');
 
 /**
@@ -8,10 +7,6 @@ require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Database.php');
  * @package Scansysteem
  */
 class DbQuestion extends Database {
-	/**
-	 * @AttributeType Scansysteem.Question
-	 */
-	private $question;
 	/**
 	 * @AttributeType Scansysteem.Database
 	 */
