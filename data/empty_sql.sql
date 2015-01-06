@@ -1,12 +1,12 @@
 -- ======================================================================
 -- ===   Sql Script for Database : Inceptio - Scansysteem
 -- ===
--- === Build : 3
+-- === Build : 6
 -- ======================================================================
 
 CREATE TABLE users
   (
-    user_id        int            unique not null,
+    user_id        int            unique not null	AUTO_INCREMENT,
     user_name      varchar(256)   unique not null,
     user_password  varchar(256)   not null,
     user_type      int            not null,
@@ -17,9 +17,25 @@ CREATE TABLE users
 
 -- ======================================================================
 
+CREATE TABLE clients
+  (
+    client_id       int            unique not null	AUTO_INCREMENT,
+    client_name     varchar(256)   not null,
+    client_address  varchar(256),
+    client_phone    varchar(256),
+    user_id         int,
+
+    primary key(client_id),
+
+    foreign key(user_id) references users(user_id)
+  )
+ ENGINE = InnoDB;
+
+-- ======================================================================
+
 CREATE TABLE surveys
   (
-    survey_id           int            unique not null,
+    survey_id           int            unique not null	AUTO_INCREMENT,
     survey_name         varchar(256)   unique,
     survey_author       int            not null,
     survey_participant  int            not null,
@@ -35,7 +51,7 @@ CREATE TABLE surveys
 
 CREATE TABLE chapters
   (
-    chapter_id           int            unique not null,
+    chapter_id           int            unique not null	AUTO_INCREMENT,
     chapter_name         varchar(256)   not null,
     chapter_description  varchar(256),
     survey_id            int            not null,
@@ -48,27 +64,29 @@ CREATE TABLE chapters
 
 -- ======================================================================
 
-CREATE TABLE questions
+CREATE TABLE questiontypes
   (
-    question_id    int            unique not null,
-    question_name  varchar(256)   not null,
-    question_help  varchar(256),
-    chapter_id     int            not null,
+    questiontype_id    int            unique not null	AUTO_INCREMENT,
+    questiontype_name  varchar(256)   unique not null,
 
-    primary key(question_id),
-
-    foreign key(chapter_id) references chapters(chapter_id)
+    primary key(questiontype_id)
   )
  ENGINE = InnoDB;
 
 -- ======================================================================
 
-CREATE TABLE answertypes
+CREATE TABLE questions
   (
-    answertype_id    int            unique not null,
-    answertype_name  varchar(256)   unique not null,
+    question_id      int            unique not null	AUTO_INCREMENT,
+    question_name    varchar(256)   not null,
+    question_help    varchar(256),
+    chapter_id       int            not null,
+    questiontype_id  int            not null,
 
-    primary key(answertype_id)
+    primary key(question_id),
+
+    foreign key(chapter_id) references chapters(chapter_id),
+    foreign key(questiontype_id) references questiontypes(questiontype_id)
   )
  ENGINE = InnoDB;
 
@@ -76,16 +94,14 @@ CREATE TABLE answertypes
 
 CREATE TABLE answers
   (
-    answer_id      int            unique not null,
-    answer_name    varchar(256)   not null,
-    answer_value   int,
-    question_id    int            not null,
-    answertype_id  int            not null,
+    answer_id     int            unique not null	AUTO_INCREMENT,
+    answer_name   varchar(256)   not null,
+    answer_value  int,
+    question_id   int            not null,
 
     primary key(answer_id),
 
-    foreign key(question_id) references questions(question_id),
-    foreign key(answertype_id) references answertypes(answertype_id)
+    foreign key(question_id) references questions(question_id)
   )
  ENGINE = InnoDB;
 
@@ -93,7 +109,7 @@ CREATE TABLE answers
 
 CREATE TABLE reports
   (
-    report_id     int            unique not null,
+    report_id     int            unique not null	AUTO_INCREMENT,
     report_value  varchar(256)   not null,
     answer_id     int            not null,
 
@@ -107,7 +123,7 @@ CREATE TABLE reports
 
 CREATE TABLE survey_question_answer
   (
-    survey_question_answer_id  int   unique not null,
+    survey_question_answer_id  int   unique not null	AUTO_INCREMENT,
     survey_id                  int   not null,
     question_id                int   not null,
     answer_id                  int   not null,

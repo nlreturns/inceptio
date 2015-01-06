@@ -1,6 +1,9 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Chapter.php');
-require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Database.php');
+
+namespace inceptio\app\classes\db;
+
+use inceptio\app\classes\Survey as Survey;
+use inceptio\app\classes\db\Database as Database;
 
 /**
  * @access public
@@ -8,67 +11,128 @@ require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Database.php');
  * @package Scansysteem
  */
 class DbChapter extends Database {
-	/**
-	 * @AttributeType Scansysteem.Chapter
-	 */
-	private $chapter;
 
-	/**
-	 * @access public
-	 */
-	public function __construct() {
-		// Not yet implemented
-	}
+    /**
+     * @AttributeType Scansysteem.Database
+     */
+    private $db;
 
-	/**
-	 * @access public
-	 * @param string $chapter_name
-	 * @param array $question_id
-	 * @param string $chapter_description
-	 * @ParamType $chapter_name string
-	 * @ParamType $question_id array
-	 * @ParamType $chapter_description string
-	 */
-	public function addChapter($_chapter_name, array_27 $_question_id, $_chapter_description) {
-		// Not yet implemented
-	}
+    /**
+     * @access public
+     */
+    public function __construct() {
+        $this->db = new Database();
+    }
 
-	/**
-	 * @access public
-	 * @param int $chapter_id
-	 * @ParamType $chapter_id int
-	 */
-	public function deleteChapter($_chapter_id) {
-		// Not yet implemented
-	}
+    /**
+     * @access public
+     * @param string $chapter_name
+     * @param array $question_id
+     * @param string $chapter_description
+     * @ParamType $chapter_name string
+     * @ParamType $question_id array
+     * @ParamType $chapter_description string
+     */
+    public function addChapter($chapter_name, Survey $survey_id, $chapter_description) {
+        //build query
+        $query = "INSERT INTO  `inceptio`.`chapters` (
+                `chapter_id` ,
+                `chapter_name` ,
+                `chapter_description` ,
+                `survey_id`
+                )
+                  VALUES (
+                NULL, 
+                '" . mysql_real_escape_string($chapter_name) . "',
+                '" . mysql_real_escape_string($chapter_description) . "',
+                '" . mysql_real_escape_string($survey_id->getSurveyId()) . "'
+                );";
 
-	/**
-	 * @access public
-	 * @param string $chapter_name
-	 * @param array $question_id
-	 * @param string $chapter_description
-	 * @ParamType $chapter_name string
-	 * @ParamType $question_id array
-	 * @ParamType $chapter_description string
-	 */
-	public function editChapter($_chapter_name, array_28 $_question_id, $_chapter_description) {
-		// Not yet implemented
-	}
+        //execute query
+        if (!$this->db->dbquery($query)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-	/**
-	 * @access public
-	 * @param int $chapter_id
-	 * @ParamType $chapter_id int
-	 */
-	public function viewChapter($_chapter_id) {
-		// Not yet implemented
-	}
+    /**
+     * @access public
+     * @param int $chapter_id
+     * @ParamType $chapter_id int
+     */
+    public function deleteChapter($chapter_id) {
+        //build query
+        $query = "DELETE FROM `chapters` WHERE chapter_id = " . $chapter_id;
+        //execute query
+        if (!$this->db->dbquery($query)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-	/**
-	 * @access public
-	 */
-	public function viewAllChapters() {
-		// Not yet implemented
-	}
+    /**
+     * @access public
+     * @param string $chapter_name
+     * @param array $question_id
+     * @param string $chapter_description
+     * @ParamType $chapter_name string
+     * @ParamType $question_id array
+     * @ParamType $chapter_description string
+     */
+    public function editChapter($chapter_id, $chapter_name, Survey $survey_id, $chapter_description) {
+        //build query
+        $query = "UPDATE `chapters` SET `chapter_name` = '".$chapter_name."', `chapter_description` = '".$chapter_description."', `survey_id` = '".$survey_id->getSurveyId()."' WHERE `chapters`.`chapter_id` = ".$chapter_id.";";
+        
+        //execute query
+        if (!$this->db->dbquery($query)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * @access public
+     * @param int $chapter_id
+     * @ParamType $chapter_id int
+     */
+    public function viewChapter($chapter_id) {
+        //build query
+        $query = "SELECT * FROM `chapters` WHERE chapter_id = " . $chapter_id;
+        
+        // fetch query
+        $data = $this->db->dbFetchArray($query);
+        
+        // check data
+        if ( $data == NULL) {
+            return FALSE;
+        }
+        return $data;
+    }
+
+    /**
+     * @access public
+     */
+    public function viewAllChapters() {
+        //build query
+        $query = "SELECT * FROM `chapters`";
+        
+        // check for data
+        if (!$this->db->dbquery($query)) {
+            return false;
+        }
+        // fetch data
+        if(!($result = $this->db->dbFetchAll())){
+            // set error.
+            echo TXT_NO_DATA;
+            return FALSE;
+        }
+        // return
+        return $result;
+    }
+
 }
+
 ?>

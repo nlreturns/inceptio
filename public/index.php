@@ -3,6 +3,7 @@ include_once '../app/Bootstrap.php';
 $bootstrap = new \inceptio\app\Bootstrap();
 
 use inceptio\app\classes\User as User;
+use inceptio\app\classes\Survey as Survey;
 
 /**
  * Test classes here
@@ -37,3 +38,5 @@ var_dump($test3);
 echo "<br />";
 $user->deleteUser();
 //*/
+
+$survey = new Survey();

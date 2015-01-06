@@ -1,7 +1,10 @@
 <?php
-require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Question.php');
-require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/DbAnswer.php');
-require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Report.php');
+
+namespace inceptio\app\classes;
+
+use inceptio\app\classes\Question as Question;
+use inceptio\app\classes\Report as Report;
+use inceptio\app\classes\db\DbAnswer as DbAnswer;
 
 /**
  * @access public
@@ -9,141 +12,166 @@ require_once(realpath(dirname(__FILE__)) . '/../Scansysteem/Report.php');
  * @package Scansysteem
  */
 class Answer extends Report {
-	/**
-	 * @AttributeType int
-	 */
-	private $answer_id;
-	/**
-	 * @AttributeType Scansysteem.Question
-	 */
-	private $question_id;
-	/**
-	 * @AttributeType string
-	 */
-	private $answer_comment;
-	/**
-	 * @AttributeType string
-	 */
-	private $answer_value;
-	/**
-	 * @AttributeType Scansysteem.DbAnswer
-	 */
-	private $answer_db;
 
-	/**
-	 * @access public
-	 */
-	public function getAnswerId() {
-		// Not yet implemented
-	}
+    /**
+     * @AttributeType int
+     */
+    private $answer_id;
 
-	/**
-	 * @access public
-	 * @param int answer_id
-	 * @return void
-	 * @ParamType answer_id int
-	 * @ReturnType void
-	 */
-	public function setAnswerId($answer_id) {
-		// Not yet implemented
-	}
+    /**
+     * @AttributeType Scansysteem.Question
+     */
+    private $question_id;
 
-	/**
-	 * @access public
-	 */
-	public function getQuestionId() {
-		// Not yet implemented
-	}
+    /**
+     * @AttributeType string
+     */
+    private $answer_name;
 
-	/**
-	 * @access public
-	 * @param array question_id
-	 * @return void
-	 * @ParamType question_id array
-	 * @ReturnType void
-	 */
-	public function setQuestionId(array_21 $question_id) {
-		// Not yet implemented
-	}
+    /**
+     * @AttributeType string
+     */
+    private $answer_value;
 
-	/**
-	 * @access public
-	 */
-	public function __construct() {
-		// Not yet implemented
-	}
+    /**
+     * @AttributeType Scansysteem.DbAnswer
+     */
+    private $answer_db;
 
-	/**
-	 * @access public
-	 */
-	public function addAnswer() {
-		// Not yet implemented
-	}
+    /**
+     * @access public
+     */
+    public function __construct() {
+        $this->question_id = new Question();
+        $this->answer_db = new DbAnswer();
+    }
 
-	/**
-	 * @access public
-	 */
-	public function deleteAnswer() {
-		// Not yet implemented
-	}
+    /**
+     * @access public
+     */
+    public function getAnswerId() {
+        if (isset($this->answer_id)) {
+            return $this->answer_id;
+        } else {
+            return "Not set";
+        }
+    }
 
-	/**
-	 * @access public
-	 */
-	public function editAnswer() {
-		// Not yet implemented
-	}
+    /**
+     * @access public
+     * @param int answer_id
+     * @return void
+     * @ParamType answer_id int
+     * @ReturnType void
+     */
+    public function setAnswerId($answer_id) {
+        $this->answer_id = $answer_id;
+    }
 
-	/**
-	 * @access public
-	 */
-	public function viewAnswer() {
-		// Not yet implemented
-	}
+    /**
+     * @access public
+     */
+    public function getQuestionId() {
+        if (isset($this->question_id)) {
+            return $this->question_id;
+        } else {
+            return "Not set";
+        }
+    }
 
-	/**
-	 * @access public
-	 */
-	public function getAnswer_value() {
-		// Not yet implemented
-	}
+    /**
+     * @access public
+     * @param array question_id
+     * @return void
+     * @ParamType question_id Question
+     * @ReturnType void
+     */
+    public function setQuestionId(Question $question_id) {
+        $this->question_id = $question_id;
+    }
+    
+    
+    /**
+     * @access public
+     */
+    public function getAnswer_value() {
+        if (isset($this->answer_value)) {
+            return $this->answer_value;
+        } else {
+            return "Not set";
+        }
+    }
 
-	/**
-	 * @access public
-	 * @param string answer_value
-	 * @return void
-	 * @ParamType answer_value string
-	 * @ReturnType void
-	 */
-	public function setAnswer_value($answer_value) {
-		$this->answer_value = $answer_value;
-	}
+    /**
+     * @access public
+     * @param string answer_value
+     * @return void
+     * @ParamType answer_value string
+     * @ReturnType void
+     */
+    public function setAnswer_value($answer_value) {
+        $this->answer_value = $answer_value;
+    }
 
-	/**
-	 * @access public
-	 * @return string
-	 * @ReturnType string
-	 */
-	public function getAnswer_comment() {
-		return $this->answer_comment;
-	}
+    /**
+     * @access public
+     * @return string
+     * @ReturnType string
+     */
+    public function getAnswer_name() {
+        if (isset($this->answer_name)) {
+            return $this->answer_name;
+        } else {
+            return "Not set";
+        }
+    }
 
-	/**
-	 * @access public
-	 * @param string answer_comment
-	 * @return void
-	 * @ParamType answer_comment string
-	 * @ReturnType void
-	 */
-	public function setAnswer_comment($answer_comment) {
-		$this->answer_comment = $answer_comment;
-	}
+    /**
+     * @access public
+     * @param string answer_name
+     * @return void
+     * @ParamType answer_name string
+     * @ReturnType void
+     */
+    public function setAnswer_name($answer_name) {
+        $this->answer_name = $answer_name;
+    }
 
-	/**
-	 * @access public
-	 */
-	public function viewAllAnswers() {
-		// Not yet implemented
-	}
+    /**
+     * @access public
+     */
+    public function addAnswer() {
+        $this->answer_db->addAnswer($this->question_id, $this->answer_name, $this->answer_value);
+    }
+
+    /**
+     * @access public
+     */
+    public function deleteAnswer() {
+        $this->answer_db->deleteAnswer($this->answer_id);
+    }
+
+    /**
+     * @access public
+     */
+    public function editAnswer() {
+        $this->answer_db->editAnswer($this->answer_id, $this->question_id, $this->answer_name, $this->answer_value);
+    }
+
+    /**
+     * @access public
+     */
+    public function viewAnswer() {
+        $this->answer_db->viewAnswer($this->answer_id);
+    }
+
+    /**
+     * @access public
+     */
+    public function viewAllAnswers() {
+        $this->answer_db->viewAllAnswers();
+    }
+
 }
+
 ?>
