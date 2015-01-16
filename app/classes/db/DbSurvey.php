@@ -34,19 +34,21 @@ class DbSurvey extends Database {
      * @ParamType $chapter_id array
      * @ParamType $author_id Scansysteem.User
      */
-    public function addSurvey(Client $client_id, User $author_id) {
+    public function addSurvey(Client $client_id, User $author_id, $chapters) {
         //build query
         $query = "INSERT INTO  `inceptio`.`surveys` (
                 `survey_id` ,
                 `survey_name` ,
                 `survey_author` ,
-                `survey_participant`
+                `survey_participant`,
+                `survey_chapters`
                 )
                   VALUES (
                 NULL, 
                 '".SURVEY_NAME."',
                 '" . mysql_real_escape_string($author_id->getUserId()) . "',
-                '" . mysql_real_escape_string($client_id->getClientId()) . "'
+                '" . mysql_real_escape_string($client_id->getClientId()) . "',
+                '" . mysql_real_escape_string($chapters) . "'
                 );";
 
         //execute query
@@ -82,9 +84,9 @@ class DbSurvey extends Database {
      * @ParamType $chapter_id array
      * @ParamType $author_id Scansysteem.User
      */
-    public function editSurvey(Client $client_id, $survey_id, User $author_id) {
+    public function editSurvey(Client $client_id, $survey_id, User $author_id, $chapters) {
         //build query
-        $query = "UPDATE `surveys` SET `survey_author` = '".$author_id->getUserId()."', `survey_participant` = '".$client_id->getClientId()."' WHERE `surveys`.`survey_id` = ".$survey_id.";";
+        $query = "UPDATE `surveys` SET `survey_author` = '".$author_id->getUserId()."', `survey_participant` = '".$client_id->getClientId()."', `survey_chapters` = '".$chapters."' WHERE `surveys`.`survey_id` = ".$survey_id.";";
         
         //execute query
         if (!$this->db->dbquery($query)) {

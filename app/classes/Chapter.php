@@ -33,16 +33,10 @@ class Chapter extends Question {
     private $chapter_db;
 
     /**
-     * @AttributeType Scansysteem.Survey 
-     */
-    private $survey_id;
-
-    /**
      * @access public
      */
     public function __construct() {
         $this->chapter_db = new DbChapter();
-        $this->survey_id = new Survey();
     }
     
     /**
@@ -114,30 +108,8 @@ class Chapter extends Question {
     /**
      * @access public
      */
-    public function getSurveyId() {
-        if (isset($this->survey_id)) {
-            return $this->survey_id;
-        } else {
-            return "Not set";
-        }
-    }
-
-    /**
-     * @access public
-     * @param array question_id
-     * @return void
-     * @ParamType question_id array
-     * @ReturnType void
-     */
-    public function setSurveyId(Survey $survey_id) {
-        $this->survey_id = $survey_id;
-    }
-
-    /**
-     * @access public
-     */
     public function addChapter() {
-        $this->chapter_db->addChapter($this->chapter_name, $this->survey_id, $this->chapter_description);
+        $this->chapter_db->addChapter($this->chapter_name, $this->chapter_description);
     }
 
     /**
@@ -151,14 +123,14 @@ class Chapter extends Question {
      * @access public
      */
     public function editChapter() {
-       $this->chapter_db->editChapter($this->chapter_id, $this->chapter_name, $this->survey_id, $this->chapter_description);
+       $this->chapter_db->editChapter($this->chapter_id, $this->chapter_name, $this->chapter_description);
     }
 
     /**
      * @access public
      */
     public function viewChapter() {
-        return $this->chapter_db->viewChapter($chapter_id);
+        return $this->chapter_db->viewChapter($this->chapter_id);
     }
 
     /**

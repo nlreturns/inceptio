@@ -38,6 +38,12 @@ class Survey extends DbSurvey {
      * @AttributeType Scansysteem.DbSurvey
      */
     private $survey_db;
+    
+    /**
+     * @AttributeType varchar
+     */
+    private $chapters;
+    
 
     /**
      * @access public
@@ -68,6 +74,28 @@ class Survey extends DbSurvey {
      */
     public function setSurveyId($survey_id) {
         $this->survey_id = $survey_id;
+    }
+    
+    /**
+     * @access public
+     */
+    public function getChapters() {
+        if (isset($this->chapters)) {
+            return $this->chapters;
+        } else {
+            return "Not set";
+        }
+    }
+
+    /**
+     * @access public
+     * @param int survey_id
+     * @return void
+     * @ParamType survey_id int
+     * @ReturnType void
+     */
+    public function setChapters($chapters) {
+        $this->survey_id = json_encode($chapters);
     }
 
     /**
@@ -140,7 +168,7 @@ class Survey extends DbSurvey {
      * @access public
      */
     public function addSurvey() {
-        $this->survey_db->addSurvey($this->client_id, $this->author_id);
+        $this->survey_db->addSurvey($this->client_id, $this->author_id, $this->chapters);
     }
 
     /**
@@ -154,7 +182,7 @@ class Survey extends DbSurvey {
      * @access public
      */
     public function editSurvey() {
-        $this->survey_db->editSurvey($this->client_id, $this->survey_id, $this->author_id);
+        $this->survey_db->editSurvey($this->client_id, $this->survey_id, $this->author_id, $this->chapters);
     }
 
     /**

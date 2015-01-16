@@ -33,19 +33,17 @@ class DbChapter extends Database {
      * @ParamType $question_id array
      * @ParamType $chapter_description string
      */
-    public function addChapter($chapter_name, Survey $survey_id, $chapter_description) {
+    public function addChapter($chapter_name, $chapter_description) {
         //build query
         $query = "INSERT INTO  `inceptio`.`chapters` (
                 `chapter_id` ,
                 `chapter_name` ,
-                `chapter_description` ,
-                `survey_id`
+                `chapter_description`
                 )
                   VALUES (
                 NULL, 
                 '" . mysql_real_escape_string($chapter_name) . "',
-                '" . mysql_real_escape_string($chapter_description) . "',
-                '" . mysql_real_escape_string($survey_id->getSurveyId()) . "'
+                '" . mysql_real_escape_string($chapter_description) . "'
                 );";
 
         //execute query
@@ -81,9 +79,9 @@ class DbChapter extends Database {
      * @ParamType $question_id array
      * @ParamType $chapter_description string
      */
-    public function editChapter($chapter_id, $chapter_name, Survey $survey_id, $chapter_description) {
+    public function editChapter($chapter_id, $chapter_name, $chapter_description) {
         //build query
-        $query = "UPDATE `chapters` SET `chapter_name` = '".$chapter_name."', `chapter_description` = '".$chapter_description."', `survey_id` = '".$survey_id->getSurveyId()."' WHERE `chapters`.`chapter_id` = ".$chapter_id.";";
+        $query = "UPDATE `chapters` SET `chapter_name` = '".$chapter_name."', `chapter_description` = '".$chapter_description."' WHERE `chapters`.`chapter_id` = ".$chapter_id.";";
         
         //execute query
         if (!$this->db->dbquery($query)) {
