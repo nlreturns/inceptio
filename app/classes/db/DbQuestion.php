@@ -38,7 +38,7 @@ class DbQuestion extends Database {
                 `question_name` ,
                 `question_help` ,
                 `chapter_id`,
-                `question_type`
+                `questiontype_id`
                 )
                   VALUES (
                 NULL, 
@@ -47,7 +47,7 @@ class DbQuestion extends Database {
                 '" . mysql_real_escape_string($chapter_id->getChapterId()) . "',
                 '" . mysql_real_escape_string($questionType) . "'
                 );";
-
+        
         //execute query
         if (!$this->db->dbquery($query)) {
             return false;

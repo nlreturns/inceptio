@@ -162,14 +162,14 @@ class Answer extends Report {
      * @access public
      */
     public function viewAnswer() {
-        $this->answer_db->viewAnswer($this->answer_id);
+        return $this->answer_db->viewAnswer($this->answer_id);
     }
 
     /**
      * @access public
      */
     public function viewAllAnswers() {
-        $this->answer_db->viewAllAnswers();
+        return $this->answer_db->viewAllAnswers();
     }
 
 }

@@ -1,4 +1,5 @@
 <?php
+namespace inceptio\app\classes;
 /**
  * @access public
  * @author janwillem

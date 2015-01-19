@@ -1,7 +1,7 @@
 -- ======================================================================
 -- ===   Sql Script for Database : Inceptio - Scansysteem
 -- ===
--- === Build : 8
+-- === Build : 10
 -- ======================================================================
 
 CREATE TABLE users
@@ -23,7 +23,7 @@ CREATE TABLE clients
     client_name     varchar(512)   not null,
     client_address  varchar(512),
     client_phone    varchar(512),
-    user_id         int,
+    user_id         int            unique,
 
     primary key(client_id),
 
@@ -40,6 +40,7 @@ CREATE TABLE surveys
     survey_author       int            not null,
     survey_participant  int            not null,
     survey_chapters     varchar(512),
+    survey_status       int,
 
     primary key(survey_id),
 
@@ -53,7 +54,7 @@ CREATE TABLE surveys
 CREATE TABLE chapters
   (
     chapter_id           int            unique not null	AUTO_INCREMENT,
-    chapter_name         varchar(512)   not null,
+    chapter_name         varchar(512)   unique not null,
     chapter_description  varchar(512),
 
     primary key(chapter_id)
@@ -76,7 +77,7 @@ CREATE TABLE questiontypes
 CREATE TABLE questions
   (
     question_id      int            unique not null	AUTO_INCREMENT,
-    question_name    varchar(512)   not null,
+    question_name    varchar(512)   unique not null,
     question_help    varchar(512),
     chapter_id       int            not null,
     questiontype_id  int            not null,
@@ -109,7 +110,7 @@ CREATE TABLE reports
   (
     report_id     int            unique not null	AUTO_INCREMENT,
     report_value  varchar(512)   not null,
-    answer_id     int            not null,
+    answer_id     int            unique not null,
 
     primary key(report_id),
 
@@ -126,6 +127,7 @@ CREATE TABLE survey_question_answer
     question_id                int            not null,
     answer_id                  int            not null,
     report_value               varchar(512),
+    comment                    varchar(512),
 
     primary key(survey_question_answer_id),
 

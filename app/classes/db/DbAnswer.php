@@ -109,6 +109,7 @@ class DbAnswer extends Database {
         if ( $data == NULL) {
             return FALSE;
         }
+        
         return $data;
     }
 

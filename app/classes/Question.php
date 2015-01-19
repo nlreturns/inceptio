@@ -69,7 +69,7 @@ class Question extends QuestionType {
      * @ParamType question_id array
      * @ReturnType void
      */
-    public function setQuestionId(array_16 $question_id) {
+    public function setQuestionId($question_id) {
         $this->question_id = $question_id;
     }
 
@@ -138,12 +138,16 @@ class Question extends QuestionType {
     public function setQuestionTypeId($questionType_id) {
         $this->questionType_id = $questionType_id;
     }
+    
+    public function setChapterId(Chapter $chapter_id){
+        $this->chapter_id = $chapter_id;
+    }
 
     /**
      * @access public
      */
     public function addQuestion() {
-        $this->question_db->addQuestion($this->question_name, $this->questionType, $this->chapter_id, $this->question_help);
+        $this->question_db->addQuestion($this->question_name, $this->questionType_id, $this->chapter_id, $this->question_help);
     }
 
     /**
@@ -157,7 +161,7 @@ class Question extends QuestionType {
      * @access public
      */
     public function editQuestion() {
-        $this->question_db->editQuestion($this->question_id, $this->question_name, $this->question_help, $this->chapter_id, $this->questionType);
+        $this->question_db->editQuestion($this->question_id, $this->question_name, $this->question_help, $this->chapter_id, $this->questionType_id);
     }
 
     /**
