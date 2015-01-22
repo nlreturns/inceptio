@@ -51,7 +51,7 @@ class DbUser extends Database {
         if (!$this->db->dbquery($query)) {
             return false;
         } else {
-            return true;
+            echo "Gebruiker aangemaakt.";
         }
     }
 
@@ -144,12 +144,14 @@ class DbUser extends Database {
         $sql = "SELECT * FROM users WHERE user_name = '$user_name' AND user_password = '$user_password' LIMIT 1";
         // execute query, fill into $results
         $result = $this->db->dbquery($sql);
-
+        
         //check if any results
         $count = mysqli_num_rows($result);
         
+        $result = $this->db->dbFetchAll();
+        
         if ($count == 1) {
-            return TRUE;
+            return $result;
         }
         
         return false;

@@ -50,7 +50,7 @@ class User extends DbUser {
         if (isset($this->user_id)) {
             return $this->user_id;
         } else {
-            return "Not set";
+            return NULL;
         }
     }
 
@@ -110,7 +110,7 @@ class User extends DbUser {
      * @ReturnType void
      */
     public function setUserPassword($user_password) {
-        $this->user_password = $user_password;
+        $this->user_password = md5($user_password);
     }
 
     /**
@@ -140,7 +140,32 @@ class User extends DbUser {
      */
     public function login() {
         // send login to db class
-        return $this->user_db->login($this->user_name, $this->user_password);
+        //return $this->user_db->login($this->user_name, $this->user_password);
+        // check if logged in
+        if (!$this->isloggedin()) {
+            // check info
+            if ($user_data = $this->user_db->login($this->user_name, $this->user_password)) {
+                
+                // set session data
+                
+                //Set user_id in session
+                $_SESSION['user_id'] = $user_data[0]['user_id'];
+                // Set user_name in session
+                $_SESSION['user_name'] = $user_data[0]['user_name'];
+                // Set user_type in session
+                $_SESSION['user_type'] = $user_data[0]['user_type'];
+                
+                //return the session
+                return $_SESSION;
+                
+            } else {
+                // display error
+                echo "Naam of wachtwoord is fout.";
+            }
+        } else {
+            // display error
+            echo "U bent al ingelogd.";
+        }
     }
 
     /**
@@ -161,7 +186,12 @@ class User extends DbUser {
      * @access public
      */
     public function viewUser() {
-        return $this->user_db->viewUser($this->user_id);
+        $data = $this->user_db->viewUser($this->user_id);
+        $this->user_name = $data['user_name'];
+        $this->user_password = $data['user_password'];
+        $this->user_type = $data['user_type'];
+        
+        return $data;
     }
 
     /**
@@ -176,6 +206,19 @@ class User extends DbUser {
      */
     public function viewAllUsers() {
         return $this->user_db->viewAllUsers();
+    }
+
+    /*
+     * check if user is logged in (through session)
+     */
+
+    public function isloggedin() {
+        if (isset($_SESSION['user_name'])) {
+            // session excists, return TRUE
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

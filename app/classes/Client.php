@@ -142,7 +142,7 @@ class Client extends DbClient {
         if (isset($this->user_id)) {
             return $this->user_id;
         } else {
-            return "Not set";
+            return NULL;
         }
     }
     
@@ -175,7 +175,12 @@ class Client extends DbClient {
      * @access public
      */
     public function viewClient() {
-        return $this->client_db->viewClient($this->client_id);
+        $data = $this->client_db->viewClient($this->client_id);
+        $this->client_address = $data['client_address'];
+        $this->client_name = $data['client_name'];
+        $this->client_phone = $data['client_phone'];
+        
+        return $data;
     }
 
     /**

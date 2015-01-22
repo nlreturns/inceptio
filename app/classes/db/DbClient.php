@@ -47,8 +47,27 @@ class DbClient extends Database {
                 '" . mysql_real_escape_string($client_name) . "',
                 '" . mysql_real_escape_string($client_address) . "',
                 '" . mysql_real_escape_string($client_phone) . "',
-                '" . mysql_real_escape_string($user_id->getUserId()) . "'
+                '" . $user_id->getUserId() . "'
                 );";
+
+
+        if ($user_id->getUserId() == NULL) {
+            //build query
+            $query = "INSERT INTO  `inceptio`.`clients` (
+                `client_id` ,
+                `client_name` ,
+                `client_address` ,
+                `client_phone`,
+                `user_id`
+                )
+                  VALUES (
+                NULL, 
+                '" . mysql_real_escape_string($client_name) . "',
+                '" . mysql_real_escape_string($client_address) . "',
+                '" . mysql_real_escape_string($client_phone) . "',
+                NULL
+                );";
+        }
 
         //execute query
         if (!$this->db->dbquery($query)) {
@@ -85,8 +104,8 @@ class DbClient extends Database {
      */
     public function editClient($client_id, $client_name, $client_address, $client_phone, User $user_id) {
         //build query
-        $query = "UPDATE `clients` SET `client_name` = '".$client_name."', `client_address` = '".$client_address."', `client_phone` = '".$client_phone."', `user_id` = '".$user_id->getUserId()."' WHERE `clients`.`client_id` = ".$client_id.";";
-        
+        $query = "UPDATE `clients` SET `client_name` = '" . $client_name . "', `client_address` = '" . $client_address . "', `client_phone` = '" . $client_phone . "', `user_id` = '" . $user_id->getUserId() . "' WHERE `clients`.`client_id` = " . $client_id . ";";
+
         //execute query
         if (!$this->db->dbquery($query)) {
             return false;
@@ -103,12 +122,12 @@ class DbClient extends Database {
     public function viewClient($client_id) {
         //build query
         $query = "SELECT * FROM `clients` WHERE client_id = " . $client_id;
-        
+
         // fetch query
         $data = $this->db->dbFetchArray($query);
-        
+
         // check data
-        if ( $data == NULL) {
+        if ($data == NULL) {
             return FALSE;
         }
         return $data;
@@ -120,13 +139,13 @@ class DbClient extends Database {
     public function viewAllClients() {
         //build query
         $query = "SELECT * FROM `clients`";
-        
+
         // check for data
         if (!$this->db->dbquery($query)) {
             return false;
         }
         // fetch data
-        if(!($result = $this->db->dbFetchAll())){
+        if (!($result = $this->db->dbFetchAll())) {
             // set error.
             echo TXT_NO_DATA;
             return FALSE;
