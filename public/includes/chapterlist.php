@@ -6,6 +6,16 @@ use inceptio\app\classes\Chapter as Chapter;
 
 $chapter = new Chapter;
 
+if(isset($_GET['delete'])){
+    
+    // set id
+    $chapter->setChapterId($_GET['delete']);
+    // delete chapter
+    $chapter->deleteChapter();
+    
+    echo "Hoofdstuk verwijdert.";
+}
+
 $chapters = $chapter->viewAllChapters();
 ?>
 
@@ -18,45 +28,34 @@ $chapters = $chapter->viewAllChapters();
         */
         td:nth-of-type(1):before { content: "Hoofdstuknaam"; }
         td:nth-of-type(2):before { content: "Beschrijving"; }
-        td:nth-of-type(5):before { content: "Acties"; }
+        td:nth-of-type(3):before { content: "Acties"; }
     }
 </style>
 
 
 <div id="options">
-    <a href="index.php?page=clientadd"><button>Toevoegen</button></a> <br />
+    <a href="index.php?page=chapteradd"><button>Toevoegen</button></a> <br />
 </div>
 
 <table>
     <thead>
         <tr>
-            <th>Bedrijfnaam</th>
-            <th>Adres</th>
-            <th>Telefoon</th>
-            <th>Gebruikersnaam</th>
+            <th>Hoofdstuknaam</th>
+            <th>Beschrijving</th>
             <th>Acties</th>
         </tr>
     </thead>
     <tbody>
         <?php
-        foreach ($clients as $client) {
-
-            if ($client['user_id'] != 0) {
-                // get User data
-                $user->setUserId($client['user_id']);
-                $data = $user->viewUser();
-            }else{
-                $data['user_name'] = "Geen gebruiker gekoppeld.";
-            }
+        foreach ($chapters as $chapter) {
             ?>
             <tr>
-                <td><?php echo $client['client_name']; ?></td>
-                <td><?= $client['client_address']; ?></td>
-                <td><?= $client['client_phone']; ?></td>
-                <td><?= $data['user_name']; ?></td>
+                <td><?php echo $chapter['chapter_name']; ?></td>
+                <td><?= $chapter['chapter_description']; ?></td>
                 <td>
-                    <a href="index.php?page=clientedit&id=<?= $client['client_id'] ?>"><button>Aanpassen</button></a> 
-                    <a href="index.php?page=clientlist&delete=<?= $client['client_id'] ?>"><button>Verwijderen</button></a> 
+                    <a href="index.php?page=chapteredit&id=<?= $chapter['chapter_id'] ?>"><button>Aanpassen</button></a> 
+                    <a href="index.php?page=chapterlist&delete=<?= $chapter['chapter_id'] ?>"><button>Verwijderen</button></a> 
+                    <a href="index.php?page=chapterview&id=<?= $chapter['chapter_id'] ?>"><button>Bekijken</button></a>
                 </td>
             </tr>
 

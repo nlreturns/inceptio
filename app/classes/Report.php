@@ -150,7 +150,12 @@ class Report extends DbReport {
      * @access public
      */
     public function viewReport() {
-        return $this->report_db->viewReport($this->report_id);
+        $data = $this->report_db->viewReport($this->report_id);
+        
+        $this->answer_id = $data['answer_id'];
+        $this->report_output = $data['report_value'];
+        
+        return $data;
     }
 
     /**

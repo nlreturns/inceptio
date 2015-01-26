@@ -130,7 +130,10 @@ class Chapter extends Question {
      * @access public
      */
     public function viewChapter() {
-        return $this->chapter_db->viewChapter($this->chapter_id);
+        $data = $this->chapter_db->viewChapter($this->chapter_id);
+        $this->chapter_name = $data['chapter_name'];
+        $this->chapter_description = $data['chapter_description'];
+        return $data;
     }
 
     /**

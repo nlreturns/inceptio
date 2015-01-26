@@ -168,7 +168,13 @@ class Question extends QuestionType {
      * @access public
      */
     public function viewQuestion() {
-        return $this->question_db->viewQuestion($this->question_id);
+        $data = $this->question_db->viewQuestion($this->question_id);
+        
+        $this->question_help = $data['question_help'];
+        $this->question_name = $data['question_name'];
+        $this->questionType_id = $data['questiontype_id'];
+        
+        return $data;
     }
 
     /**

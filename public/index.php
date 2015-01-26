@@ -40,10 +40,7 @@
                     <li class="tutorials"><a href="index.php?page=userlist">Gebruikers</a></li>
                     <li class="about"><a href="index.php?page=clientlist">Bedrijven</a></li>
                     <li class="news"><a href="index.php?page=chapterlist">Hoofdstukken</a></li>
-                    <li class="contact"><a href="#">Enquetes</a></li>
-                    <li class="contact"><a href="#">Vragen</a></li>
-                    <li class="contact"><a href="#">Antwoorden</a></li>
-                    <li class="contact"><a href="#">Rapporten</a></li>
+                    <li class="contact"><a href="index.php?page=questionlist">Vragen</a></li>
                     <li><a href="index.php?logout">Uitloggen</a></li>
                 </ul>
             </div>
@@ -72,6 +69,48 @@
                         break;
                     case "clientedit":
                         include 'includes/clientedit.php';
+                        break;
+                    case "chapterlist":
+                        include 'includes/chapterlist.php';
+                        break;
+                    case "chapteradd":
+                        include 'includes/chapteradd.php';
+                        break;
+                    case "chapteredit":
+                        include 'includes/chapteredit.php';
+                        break;
+                    case "chapterview":
+                        include 'includes/chapterview.php';
+                        break;
+                    case "questionlist":
+                        include 'includes/questionlist.php';
+                        break;
+                    case "questionadd":
+                        include 'includes/questionadd.php';
+                        break;
+                    case "questionedit":
+                        include 'includes/questionedit.php';
+                        break;
+                    case "questionview":
+                        include 'includes/questionview.php';
+                        break;
+                    case "answerlist":
+                        include 'includes/answerlist.php';
+                        break;
+                    case "answeradd":
+                        include 'includes/answeradd.php';
+                        break;
+                    case "answeredit":
+                        include 'includes/answeredit.php';
+                        break;
+                    case "answerview":
+                        include 'includes/answerview.php';
+                        break;
+                    case "reportadd":
+                        include 'includes/reportadd.php';
+                        break;
+                    case "reportedit":
+                        include 'includes/reportedit.php';
                         break;
                 }
             } else {

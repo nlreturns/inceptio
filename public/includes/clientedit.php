@@ -54,7 +54,7 @@ $users = $user->viewAllUsers();
 
     <div>
         <label class="desc" id="title106" for="Field106">
-            Gebruikerstype
+            Gebruikersnaam
         </label>
         <div>
 

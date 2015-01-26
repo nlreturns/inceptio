@@ -84,7 +84,6 @@ CREATE TABLE questions
 
     primary key(question_id),
 
-    foreign key(chapter_id) references chapters(chapter_id),
     foreign key(questiontype_id) references questiontypes(questiontype_id)
   )
  ENGINE = InnoDB;
@@ -124,16 +123,14 @@ CREATE TABLE survey_question_answer
   (
     survey_question_answer_id  int            unique not null	AUTO_INCREMENT,
     survey_id                  int            not null,
-    question_id                int            not null,
-    answer_id                  int            not null,
+    question_id                varchar(512)   not null,
+    answer_id                  varchar(512)   not null,
     report_value               varchar(512),
     comment                    varchar(512),
 
     primary key(survey_question_answer_id),
 
-    foreign key(survey_id) references surveys(survey_id),
-    foreign key(question_id) references questions(question_id),
-    foreign key(answer_id) references answers(answer_id)
+    foreign key(survey_id) references surveys(survey_id)
   )
  ENGINE = InnoDB;
 
