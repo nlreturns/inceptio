@@ -11,13 +11,10 @@ if (isset($_POST['saveForm'])) {
     $client->setClientName($_POST['client_name']);
     $client->setClientAddress($_POST['client_address']);
     $client->setClientPhone($_POST['client_phone']);
+    $client->setClientEmail($_POST['client_email']);
+    $client->setClientPlace($_POST['client_place']);
+    $client->setClientStreet($_POST['client_street']);
 
-    // check if an user is selected
-    if ($_POST['user'] != 0) {
-        $user->setUserId($_POST['user']);
-        $user->viewUser();
-        $client->setUserId($user);
-    }
     // add client
     $client->addClient();
 
@@ -30,6 +27,10 @@ $clients = $client->viewAllClients();
 
 <form action="index.php?page=clientadd" method="post">
     <div>
+        <div><h1>Bedrijf toevoegen</h1></div>
+    </div>
+    
+    <div>
         <label class="desc" id="title1" for="client_name">Bedrijfsnaam</label>
         <div>
             <input id="Field1" name="client_name" type="text" class="field text fn" value="" size="8" tabindex="1">
@@ -37,9 +38,23 @@ $clients = $client->viewAllClients();
     </div>
 
     <div>
-        <label class="desc" id="title1" for="client_address">Adres</label>
+        <label class="desc" id="title1" for="client_address">Postcode</label>
         <div>
-            <input id="Field1" name="client_address" type="text" class="field text fn" value="" size="8" tabindex="1">
+            <input maxlength="6" id="Field1" name="client_address" type="text" class="field text fn" value="" size="8" tabindex="1">
+        </div>
+    </div>
+    
+    <div>
+        <label class="desc" id="title1" for="client_street">Straat</label>
+        <div>
+            <input id="Field1" name="client_street" type="text" class="field text fn" value="" size="8" tabindex="1">
+        </div>
+    </div>
+    
+    <div>
+        <label class="desc" id="title1" for="client_place">Plaats</label>
+        <div>
+            <input id="Field1" name="client_place" type="text" class="field text fn" value="" size="8" tabindex="1">
         </div>
     </div>
 
@@ -49,30 +64,11 @@ $clients = $client->viewAllClients();
             <input id="Field1" name="client_phone" type="text" class="field text fn" value="" size="8" tabindex="1">
         </div>
     </div>
-
+    
     <div>
-        <label class="desc" id="title106" for="Field106">
-            Gebruiker
-        </label>
+        <label class="desc" id="title1" for="client_email">Email</label>
         <div>
-            <select id="Field106" name="user" class="field select medium" tabindex="11"> 
-                <option value="0">Geen</option>
-                <?php
-                foreach ($users as $user) {
-                    if ($user['user_type'] == 0) {
-                        foreach ($clients as $client) {
-                            if ($client['user_id'] == $user['user_id']) {
-                                $dont_show = TRUE;
-                            }
-                        }
-                        if(!$dont_show){
-                            echo "<option value='" . $user['user_id'] . "'>" . $user['user_name'] . "</option>";
-                        }
-                        $dont_show = FALSE;
-                    }
-                }
-                ?>
-            </select>
+            <input id="Field1" name="client_email" type="text" class="field text fn" value="" size="8" tabindex="1">
         </div>
     </div>
 

@@ -13,25 +13,36 @@ $data = $answer->viewAnswer();
 
 $question->setQuestionId($data['question_id']);
 $data2 = $question->viewQuestion();
-
 ?>
 
 <form action="index.php?page=questionview&id=<?= $data2['question_id']; ?>&answer=<?= $data['answer_id']; ?>" method="post">
-    
+
     <div>
         <label class="desc" id="title1">Geselecteerde vraag</label>
         <?= $data2['question_name']; ?><br />
     </div>
-    
+
     <div>
         <label class="desc" id="title1">Geselecteerd antwoord</label>
         <?= $data['answer_name']; ?><br />
     </div>
-    
+
     <div>
         <label class="desc" id="title1" for="report_name">Rapport</label>
         <div>
             <textarea id="Field4" name="report_name" spellcheck="true" rows="10" cols="50" tabindex="4"></textarea>
+        </div>
+    </div>
+
+    <div>
+        <label class="desc" id="title106" for="Field106">
+            Rapporttype
+        </label>
+        <div>
+            <select id="Field106" name="report_type" class="field select medium" tabindex="11"> 
+                <option value="1">World</option>
+                <option value="2">People</option>
+            </select>
         </div>
     </div>
 

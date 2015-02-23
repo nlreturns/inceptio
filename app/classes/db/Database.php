@@ -256,6 +256,10 @@ class Database {
 
         //echo "<br />". __FILE__ . ' ' . __LINE__ . ' '. "<strong>CLOSE DB #". $this->connection ."</strong><br />";
     }
+    
+    public function lastId(){
+        return $this->connection->insert_id;
+    }
 
 }
 

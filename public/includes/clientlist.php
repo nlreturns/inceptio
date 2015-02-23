@@ -8,6 +8,14 @@ use inceptio\app\classes\Client as Client;
 $user = new User;
 $client = new Client;
 
+$asc = "asc";
+
+if(isset($_GET['asc'])){
+    if($_GET['asc'] == "asc"){
+        $asc = "desc";
+    }
+}
+
 // if delete is called
 if (isset($_GET['delete'])) {
     // set id to delete
@@ -16,8 +24,11 @@ if (isset($_GET['delete'])) {
     $client->deleteClient();
     echo "Bedrijf is verwijderd";
 }
-
-$clients = $client->viewAllClients();
+if(isset($_GET['filter'])){
+    $clients = $client->viewAllClients($_GET['filter'], $_GET['asc']);
+}else{
+    $clients = $client->viewAllClients();
+}
 ?>
 
 <style type="text/css">
@@ -28,10 +39,13 @@ $clients = $client->viewAllClients();
         Label the data
         */
         td:nth-of-type(1):before { content: "Bedrijfnaam"; }
-        td:nth-of-type(2):before { content: "Adres"; }
-        td:nth-of-type(3):before { content: "Telefoon"; }
-        td:nth-of-type(4):before { content: "Gebruikersnaam"; }
-        td:nth-of-type(5):before { content: "Acties"; }
+        td:nth-of-type(2):before { content: "Postcode"; }
+        td:nth-of-type(3):before { content: "Plaats"; }
+        td:nth-of-type(4):before { content: "Straat"; }
+        td:nth-of-type(5):before { content: "Telefoon"; }
+        td:nth-of-type(6):before { content: "Email"; }
+        //td:nth-of-type(4):before { content: "Gebruikersnaam"; }
+        td:nth-of-type(7):before { content: "Acties"; }
     }
 </style>
 
@@ -43,10 +57,13 @@ $clients = $client->viewAllClients();
 <table>
     <thead>
         <tr>
-            <th>Bedrijfnaam</th>
-            <th>Adres</th>
-            <th>Telefoon</th>
-            <th>Gebruikersnaam</th>
+            <th>Bedrijfnaam <a href="index.php?page=clientlist&filter=client_name&asc=<?= $asc ?>"> <?php if($asc == 'asc'){ ?> <i class="fa fa-chevron-circle-up"></i> <?php }else{ ?> <i class="fa fa-chevron-circle-down"></i> <?php } ?></a></th>
+            <th>Postcode <a href="index.php?page=clientlist&filter=client_address&asc=<?= $asc ?>"> <?php if($asc == 'asc'){ ?> <i class="fa fa-chevron-circle-up"></i> <?php }else{ ?> <i class="fa fa-chevron-circle-down"></i> <?php } ?></a></th>
+            <th>Plaats <a href="index.php?page=clientlist&filter=client_place&asc=<?= $asc ?>"> <?php if($asc == 'asc'){ ?> <i class="fa fa-chevron-circle-up"></i> <?php }else{ ?> <i class="fa fa-chevron-circle-down"></i> <?php } ?></a></th>
+            <th>Straat <a href="index.php?page=clientlist&filter=client_street&asc=<?= $asc ?>"> <?php if($asc == 'asc'){ ?> <i class="fa fa-chevron-circle-up"></i> <?php }else{ ?> <i class="fa fa-chevron-circle-down"></i> <?php } ?></a></th>
+            <th>Telefoon <a href="index.php?page=clientlist&filter=client_phone&asc=<?= $asc ?>"> <?php if($asc == 'asc'){ ?> <i class="fa fa-chevron-circle-up"></i> <?php }else{ ?> <i class="fa fa-chevron-circle-down"></i> <?php } ?></a></th>
+            <th>Email <a href="index.php?page=clientlist&filter=client_email&asc=<?= $asc ?>"> <?php if($asc == 'asc'){ ?> <i class="fa fa-chevron-circle-up"></i> <?php }else{ ?> <i class="fa fa-chevron-circle-down"></i> <?php } ?></a></th>
+            <!--<th>Gebruikersnaam</th>-->
             <th>Acties</th>
         </tr>
     </thead>
@@ -65,8 +82,11 @@ $clients = $client->viewAllClients();
             <tr>
                 <td><?php echo $client['client_name']; ?></td>
                 <td><?= $client['client_address']; ?></td>
+                <td><?= $client['client_place']; ?></td>
+                <td><?= $client['client_street']; ?></td>
                 <td><?= $client['client_phone']; ?></td>
-                <td><?= $data['user_name']; ?></td>
+                <td><?= $client['client_email']; ?></td>
+                <!--<td><?php //echo $data['user_name']; ?></td> -->
                 <td>
                     <a href="index.php?page=clientedit&id=<?= $client['client_id'] ?>"><button>Aanpassen</button></a> 
                     <a href="index.php?page=clientlist&delete=<?= $client['client_id'] ?>"><button>Verwijderen</button></a> 

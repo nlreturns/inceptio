@@ -13,12 +13,15 @@ if (isset($_POST['saveForm'])) {
     $client->setClientName($_POST['client_name']);
     $client->setClientAddress($_POST['client_address']);
     $client->setClientPhone($_POST['client_phone']);
-    
-    $user->setUserId($_POST['user']);
+    $client->setClientEmail($_POST['client_email']);
+    $client->setClientPlace($_POST['client_place']);
+    $client->setClientStreet($_POST['client_street']);
+    /*
+    $user->setUserId(NULL);
     $user->viewUser();
     
     $client->setUserId($user);
-
+    */
     $client->editClient();
     echo "Bedrijf aangepast.";
 }
@@ -37,9 +40,23 @@ $users = $user->viewAllUsers();
     </div>
 
     <div>
-        <label class="desc" id="title1" for="client_address">Adres</label>
+        <label class="desc" id="title1" for="client_address">Postcode</label>
         <div>
-            <input id="Field1" name="client_address" type="text" class="field text fn" value="<?= $client->getClientAddress(); ?>" size="8" tabindex="1">
+            <input maxlength="6" id="Field1" name="client_address" type="text" class="field text fn" value="<?= $client->getClientAddress(); ?>" size="8" tabindex="1">
+        </div>
+    </div>
+    
+    <div>
+        <label class="desc" id="title1" for="client_street">Straat</label>
+        <div>
+            <input id="Field1" name="client_street" type="text" class="field text fn" value="<?= $client->getClientStreet(); ?>" size="8" tabindex="1">
+        </div>
+    </div>
+    
+    <div>
+        <label class="desc" id="title1" for="client_place">Plaats</label>
+        <div>
+            <input id="Field1" name="client_place" type="text" class="field text fn" value="<?= $client->getClientPlace(); ?>" size="8" tabindex="1">
         </div>
     </div>
 
@@ -49,45 +66,14 @@ $users = $user->viewAllUsers();
             <input id="Field1" name="client_phone" type="text" class="field text fn" value="<?= $client->getClientPhone(); ?>" size="8" tabindex="1">
         </div>
     </div>
-
-
-
+    
     <div>
-        <label class="desc" id="title106" for="Field106">
-            Gebruikersnaam
-        </label>
+        <label class="desc" id="title1" for="client_email">Email</label>
         <div>
-
-            <select id="Field106" name="user" class="field select medium" tabindex="11"> 
-                <option value="0">Geen</option>
-                <?php
-                foreach ($users as $user) {
-                    if ($user['user_type'] == 0) {
-                        // filter the already used user_ids
-                        foreach ($clients as $client) {
-                            if ($client['user_id'] == $user['user_id']) {
-                                $dont_show = TRUE;
-                            }
-                        }
-                        // loop the open user_ids
-                        if (!$dont_show) {
-                            echo "<option value='" . $user['user_id'] . "'>" . $user['user_name'] . "</option>";
-
-                        }
-                        
-                        // select option, if its current user
-                        if($user['user_id'] == $data['user_id']){
-                            echo "<option selected value='" . $user['user_id'] . "'>" . $user['user_name'] . "</option>";
-                        }
-                        
-                        // reset dont_show
-                        $dont_show = FALSE;
-                    }
-                }
-                ?>
-            </select>
+            <input id="Field1" name="client_email" type="text" class="field text fn" value="<?= $client->getClientEmail(); ?>" size="8" tabindex="1">
         </div>
     </div>
+
 
     <div>
         <div>

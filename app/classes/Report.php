@@ -30,6 +30,8 @@ class Report extends DbReport {
      * @AttributeType Scansysteem.DbReport
      */
     private $report_db;
+    private $survey_id;
+    private $report_type;
 
     /**
      * @access public
@@ -71,6 +73,30 @@ class Report extends DbReport {
         }
     }
 
+    public function getSurveyId() {
+        if (isset($this->survey_id)) {
+            return $this->survey_id;
+        } else {
+            return "Not set";
+        }
+    }
+    
+    public function getReportType(){
+        if (isset($this->report_type)){
+            return $this->report_type;
+        }else{
+            return NULL;
+        }
+    }
+    
+    public function setReportType($report_type){
+        $this->report_type = $report_type;
+    }
+
+    public function setSurveyId($survey_id) {
+        $this->survey_id = $survey_id;
+    }
+
     /**
      * @access public
      * @param int answer_id
@@ -89,7 +115,7 @@ class Report extends DbReport {
         if (isset($this->report_output)) {
             return $this->report_output;
         } else {
-            return "Not set";
+            return "";
         }
     }
 
@@ -128,8 +154,8 @@ class Report extends DbReport {
     /**
      * @access public
      */
-    public function addReport() {
-        $this->report_db->addReport($this->answer_id, $this->report_output);
+    public function addReport($answer_id = null, $report_output = null, $report_type = null){
+        $this->report_db->addReport($this->answer_id, $this->report_output, $this->report_type);
     }
 
     /**
@@ -143,7 +169,7 @@ class Report extends DbReport {
      * @access public
      */
     public function editReport() {
-        $this->report_db->editReport($this->report_id, $this->answer_id, $this->report_output);
+        $this->report_db->editReport($this->report_id, $this->answer_id, $this->report_output, $this->report_type);
     }
 
     /**
@@ -151,10 +177,11 @@ class Report extends DbReport {
      */
     public function viewReport() {
         $data = $this->report_db->viewReport($this->report_id);
-        
+
         $this->answer_id = $data['answer_id'];
         $this->report_output = $data['report_value'];
-        
+        $this->report_type = $data['report_type'];
+
         return $data;
     }
 
@@ -165,6 +192,14 @@ class Report extends DbReport {
         return $this->report_db->viewAllReports();
     }
 
+    public function viewFullReport() {
+        return $this->report_db->viewFullReport($this->survey_id);
+    }
+
+    public function editFinalReport(){
+        $this->report_db->editFinalReport($this->report_id, $this->report_output);
+    }
+    
 }
 
 ?>

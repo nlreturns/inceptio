@@ -33,19 +33,21 @@ class DbAnswer extends Database {
      * @ParamType $answer_comment string
      * @ParamType $answer_value string
      */
-    public function addAnswer(Question $question_id, $answer_name, $answer_value) {
+    public function addAnswer(Question $question_id, $answer_name, $answer_value, $answer_sub = NULL) {
         //build query
         $query = "INSERT INTO  `inceptio`.`answers` (
                 `answer_id` ,
                 `answer_name` ,
                 `answer_value` ,
-                `question_id`
+                `question_id` ,
+                `answer_sub`
                 )
                   VALUES (
                 NULL, 
                 '" . mysql_real_escape_string($answer_name) . "',
                 '" . mysql_real_escape_string($answer_value) . "',
-                '" . mysql_real_escape_string($question_id->getQuestionId()) . "'
+                '" . mysql_real_escape_string($question_id->getQuestionId()) . "',
+                '" . $answer_sub . "'
                 );";
 
         //execute query
@@ -81,9 +83,9 @@ class DbAnswer extends Database {
      * @ParamType $answer_comment string
      * @ParamType $answer_value string
      */
-    public function editAnswer($answer_id, $question_id, $answer_name, $answer_value) {
+    public function editAnswer($answer_id, $question_id, $answer_name, $answer_value, $answer_sub = NULL) {
         //build query
-        $query = "UPDATE `answers` SET `answer_name` = '".$answer_name."', `answer_value` = '".$answer_value."', `question_id` = '".$question_id->getQuestionId()."' WHERE `answers`.`answer_id` = ".$answer_id.";";
+        $query = "UPDATE `answers` SET `answer_name` = '".$answer_name."', `answer_value` = '".$answer_value."', `question_id` = '".$question_id->getQuestionId()."', `answer_sub` = '".$answer_sub."' WHERE `answers`.`answer_id` = ".$answer_id.";";
         
         //execute query
         if (!$this->db->dbquery($query)) {

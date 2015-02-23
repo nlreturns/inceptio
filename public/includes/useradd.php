@@ -7,12 +7,15 @@ $user = new User;
 if (isset($_POST['saveForm'])) {
     $user->setUserName($_POST['user_name']);
     $user->setUserPassword($_POST['user_password']);
-    $user->setUserType($_POST['user_type']);
+    $user->setUserType(1);
     $user->addUser();
 }
 ?>
 
 <form action="index.php?page=useradd" method="post">
+    <div>
+        <div><h1>Gebruiker aanmaken</h1></div>
+    </div>
     <div>
         <label class="desc" id="title1" for="user_name">Gebruikersnaam</label>
         <div>
@@ -26,7 +29,8 @@ if (isset($_POST['saveForm'])) {
             <input id="Field1" name="user_password" type="password" class="field text fn" value="" size="8" tabindex="1">
         </div>
     </div>
-
+    
+    <!--
     <div>
         <label class="desc" id="title106" for="Field106">
             Gebruikerstype
@@ -38,6 +42,7 @@ if (isset($_POST['saveForm'])) {
             </select>
         </div>
     </div>
+    -->
 
     <div>
         <div>

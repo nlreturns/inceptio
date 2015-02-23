@@ -81,9 +81,10 @@ $clients = $client->viewAllClients();
                     <!--<a href="index.php?page=userview?id=<?= $user['user_id'] ?>"><button>Bekijken</button></a> -->
                     <a href="index.php?page=useredit&id=<?= $user['user_id'] ?>"><button>Aanpassen</button></a> 
                     <a href="index.php?page=userlist&delete=<?= $user['user_id'] ?>"><button>Verwijderen</button></a> 
-
-                    <?php if ($user['user_type'] != 1) { ?>
-                        <form action="index.php?page=userlist&toewijzen=<?= $user['user_id'] ?>" method="post">
+                    
+                    <!--
+                    <?php //if ($user['user_type'] != 1) { ?>
+                        <form action="index.php?page=userlist&toewijzen=<?php //echo $user['user_id']; ?>" method="post">
                             <div>
                                 <label class="desc" id="title106" for="Field106">
                                     Bedrijf toewijzen: 
@@ -91,6 +92,7 @@ $clients = $client->viewAllClients();
                                 <div>
                                     <select id="Field106" name="client_id" class="field select medium" tabindex="11"> 
                                         <?php
+                                        /*
                                         foreach ($clients as $client) {
 
                                             if ($client['user_id'] == $user['user_id']) {
@@ -99,6 +101,7 @@ $clients = $client->viewAllClients();
                                                 echo "<option value='" . $client['client_id'] . "'>" . $client['client_name'] . "</option>";
                                             }
                                         }
+                                         */
                                         ?>
                                     </select>
                                 </div>
@@ -110,7 +113,8 @@ $clients = $client->viewAllClients();
                                 </div>
                             </div>
                         </form>
-                    <?php } ?>
+                    <?php //} ?>
+                    -->
                 </td>
             </tr>
 

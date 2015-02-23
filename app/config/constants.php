@@ -24,5 +24,6 @@ define("DIR_ADMIN_CLASS",               DIR_ADMIN_INCLUDE."classes/");
 define("DIR_CLASS",                     WWW_ROOT."classes/");
 
 define("SURVEY_NAME",                   "Groene scan");
+define("TXT_NO_DATA",                   "");
 
 ?>

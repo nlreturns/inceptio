@@ -13,7 +13,7 @@ if(isset($_GET['delete'])){
     // delete chapter
     $chapter->deleteChapter();
     
-    echo "Hoofdstuk verwijdert.";
+    echo "Onderdeel verwijdert.";
 }
 
 $chapters = $chapter->viewAllChapters();
@@ -26,7 +26,7 @@ $chapters = $chapter->viewAllChapters();
         /*
         Label the data
         */
-        td:nth-of-type(1):before { content: "Hoofdstuknaam"; }
+        td:nth-of-type(1):before { content: "Onderdeelnaam"; }
         td:nth-of-type(2):before { content: "Beschrijving"; }
         td:nth-of-type(3):before { content: "Acties"; }
     }
@@ -40,7 +40,7 @@ $chapters = $chapter->viewAllChapters();
 <table>
     <thead>
         <tr>
-            <th>Hoofdstuknaam</th>
+            <th>Onderdeelnaam</th>
             <th>Beschrijving</th>
             <th>Acties</th>
         </tr>

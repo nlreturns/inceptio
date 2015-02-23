@@ -12,7 +12,7 @@ if (isset($_POST['saveForm'])) {
     // add chapter
     $chapter->addChapter();
 
-    echo "Hoofdstuk toegevoegt.";
+    echo "Onderdeel toegevoegt.";
 }
 
 $chapters = $chapter->viewAllChapters();
@@ -20,7 +20,10 @@ $chapters = $chapter->viewAllChapters();
 
 <form action="index.php?page=chapteradd" method="post">
     <div>
-        <label class="desc" id="title1" for="chapter_name">Hoofdstuknaam</label>
+        <div><h1>Onderdeel toevoegen</h1></div>
+    </div>
+    <div>
+        <label class="desc" id="title1" for="chapter_name">Onderdeelnaam</label>
         <div>
             <input id="Field1" name="chapter_name" type="text" class="field text fn" value="" size="8" tabindex="1">
         </div>

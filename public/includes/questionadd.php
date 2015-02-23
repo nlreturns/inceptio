@@ -29,6 +29,9 @@ $questions = $question->viewAllQuestions();
 
 <form action="index.php?page=questionadd" method="post">
     <div>
+        <div><h1>Vraag aanmaken</h1></div>
+    </div>
+    <div>
         <label class="desc" id="title1" for="question_name">Vraag</label>
         <div>
             <input id="Field1" name="question_name" type="text" class="field text fn" value="" size="8" tabindex="1">
@@ -36,7 +39,8 @@ $questions = $question->viewAllQuestions();
     </div>
 
     <div>
-        <label class="desc" id="title1" for="question_help">Hulp</label>
+        
+        <label class="desc" id="title1" for="question_help">Hulp <button type="button">?</button></label>
         <div>
             <input id="Field1" name="question_help" type="text" class="field text fn" value="" size="8" tabindex="1">
         </div>
@@ -44,7 +48,7 @@ $questions = $question->viewAllQuestions();
 
     <div>
         <label class="desc" id="title106" for="Field106">
-            Hoofdstuk
+            Onderdeel
         </label>
         <div>
             <select id="Field106" name="chapter" class="field select medium" tabindex="11"> 

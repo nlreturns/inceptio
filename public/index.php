@@ -4,6 +4,7 @@
     <head>
         <title>Inceptio</title>
         <link rel="stylesheet" href="style.css"/>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     </head>
     <body>
         <?php
@@ -37,9 +38,10 @@
             <div class="nav">
                 <ul>
                     <li class="home"><a href="index.php">Home</a></li>
+                    <li class="tutorials"><a href="index.php?page=enquetelist">Analyse</a></li>
                     <li class="tutorials"><a href="index.php?page=userlist">Gebruikers</a></li>
                     <li class="about"><a href="index.php?page=clientlist">Bedrijven</a></li>
-                    <li class="news"><a href="index.php?page=chapterlist">Hoofdstukken</a></li>
+                    <li class="news"><a href="index.php?page=chapterlist">Onderdelen</a></li>
                     <li class="contact"><a href="index.php?page=questionlist">Vragen</a></li>
                     <li><a href="index.php?logout">Uitloggen</a></li>
                 </ul>
@@ -111,6 +113,24 @@
                         break;
                     case "reportedit":
                         include 'includes/reportedit.php';
+                        break;
+                    case "enqueteadd":
+                        include 'includes/enqueteadd.php';
+                        break;
+                    case "enquete":
+                        include 'includes/enquete.php';
+                        break;
+                    case "enquetelist":
+                        include 'includes/enquetelist.php';
+                        break;
+                    case "reportview":
+                        include 'includes/reportview.php';
+                        break;
+                    case "reportgenerate":
+                        include 'includes/reportgenerate.php';
+                        break;
+                    case "enquetedownload":
+                        include 'includes/enquetedownload.php';
                         break;
                 }
             } else {

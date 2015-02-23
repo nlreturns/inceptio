@@ -19,7 +19,7 @@ $questions = $question->viewAllQuestions();
         /*
         Label the data
         */
-        td:nth-of-type(1):before { content: "Hoofdstuknaam"; }
+        td:nth-of-type(1):before { content: "Onderdeelnaam"; }
         td:nth-of-type(2):before { content: "Beschrijving"; }
         td:nth-of-type(3):before { content: "Vragen"; }
         }
@@ -28,7 +28,7 @@ $questions = $question->viewAllQuestions();
     <table>
         <thead>
             <tr>
-                <th>Hoofdstuknaam</th>
+                <th>Onderdeelnaam</th>
                 <th>Beschrijving</th>
                 <th>Vragen</th>
             </tr>

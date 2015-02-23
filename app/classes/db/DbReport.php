@@ -30,17 +30,19 @@ class DbReport extends Database {
      * @ParamType $answer_id int
      * @ParamType $report_output string
      */
-    public function addReport($answer_id, $report_output) {
+    public function addReport($answer_id, $report_output, $report_type) {
         //build query
         $query = "INSERT INTO  `inceptio`.`reports` (
                 `report_id` ,
                 `report_value` ,
-                `answer_id`
+                `answer_id`,
+                `report_type`
                 )
                   VALUES (
                 NULL, 
                 '" . mysql_real_escape_string($report_output) . "',
-                '" . mysql_real_escape_string($answer_id) . "'
+                '" . mysql_real_escape_string($answer_id) . "',
+                '" . mysql_real_escape_string($report_type) . "'
                 );";
 
         //execute query
@@ -74,9 +76,9 @@ class DbReport extends Database {
      * @ParamType $answer_id int
      * @ParamType $report_output string
      */
-    public function editReport($report_id, $answer_id, $report_output) {
+    public function editReport($report_id, $answer_id, $report_output, $report_type) {
         //build query
-        $query = "UPDATE `reports` SET `report_value` = '".$report_output."', `answer_id` = '".$answer_id."' WHERE `reports`.`report_id` = ".$report_id.";";
+        $query = "UPDATE `reports` SET `report_value` = '".$report_output."', `answer_id` = '".$answer_id."', `report_type` = '".$report_type."' WHERE `reports`.`report_id` = ".$report_id.";";
         
         //execute query
         if (!$this->db->dbquery($query)) {
@@ -124,6 +126,36 @@ class DbReport extends Database {
         }
         // return
         return $result;
+    }
+    
+    public function viewFullReport($survey_id){
+        //build query
+        $query = "SELECT * FROM `survey_question_answer` WHERE `survey_id` = " . $survey_id;
+        
+        // check for data
+        if (!$this->db->dbquery($query)) {
+            return false;
+        }
+        // fetch data
+        if(!($result = $this->db->dbFetchAll())){
+            // set error.
+            echo TXT_NO_DATA;
+            return FALSE;
+        }
+        // return
+        return $result;
+    }
+    
+    public function editFinalReport($report_id, $report_output){
+        //build query
+        $query = "UPDATE `survey_question_answer` SET `report_value` = '".$report_output."' WHERE `survey_question_answer_id` = ".$report_id.";";
+        
+        //execute query
+        if (!$this->db->dbquery($query)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

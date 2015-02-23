@@ -24,6 +24,17 @@ time, mark, audio, video {
     font: inherit;
     vertical-align: baseline;
 }
+
+/* unvisited link */
+a:link {
+    color: #FFFFFF;
+}
+
+/* visited link */
+a:visited {
+    color: #FFFFFF;
+}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
@@ -405,4 +416,9 @@ textarea:focus {
     legend {
         text-align: right;
     }
+}
+
+/* TITELS ENZO */
+h1{
+    font-size: 20px;
 }

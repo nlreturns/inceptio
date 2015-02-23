@@ -41,6 +41,10 @@ class Client extends DbClient {
      * @AttributeType Scansysteem.DbClient
      */
     private $client_db;
+    
+    private $client_street;
+    private $client_place;
+    private $client_email;
 
     /**
      * @access public
@@ -70,6 +74,42 @@ class Client extends DbClient {
      */
     public function setClientId($client_id) {
         $this->client_id = $client_id;
+    }
+    
+    public function setClientStreet($client_street){
+        $this->client_street = $client_street;
+    }
+    
+    public function setClientPlace($client_place){
+        $this->client_place = $client_place;
+    }
+    
+    public function setClientEmail($client_email){
+        $this->client_email = $client_email;
+    }
+    
+    public function getClientStreet(){
+        if (isset($this->client_street)) {
+            return $this->client_street;
+        } else {
+            return "Not set";
+        }
+    }
+    
+    public function getClientPlace(){
+        if (isset($this->client_place)) {
+            return $this->client_place;
+        } else {
+            return "Not set";
+        }
+    }
+    
+    public function getClientEmail(){
+        if (isset($this->client_email)) {
+            return $this->client_email;
+        } else {
+            return "Not set";
+        }
     }
 
     /**
@@ -113,6 +153,12 @@ class Client extends DbClient {
      * @ReturnType void
      */
     public function setClientAddress($client_address) {
+        
+        // remove spaces and put in uppercase
+        $client_address = preg_replace('/\s+/', '', $client_address);
+        
+        $client_address = strtoupper($client_address);
+        
         $this->client_address = $client_address;
     }
 
@@ -154,7 +200,7 @@ class Client extends DbClient {
      * @access public
      */
     public function addClient() {
-        $this->client_db->addClient($this->client_name, $this->client_address, $this->client_phone, $this->user_id);
+        $this->client_db->addClient($this->client_name, $this->client_address, $this->client_phone, $this->user_id, $this->client_email, $this->client_place, $this->client_street);
     }
 
     /**
@@ -168,7 +214,7 @@ class Client extends DbClient {
      * @access public
      */
     public function editClient() {
-        $this->client_db->editClient($this->client_id, $this->client_name, $this->client_address, $this->client_phone, $this->user_id);
+        $this->client_db->editClient($this->client_id, $this->client_name, $this->client_address, $this->client_phone, $this->client_email, $this->client_place, $this->client_street);
     }
 
     /**
@@ -179,6 +225,9 @@ class Client extends DbClient {
         $this->client_address = $data['client_address'];
         $this->client_name = $data['client_name'];
         $this->client_phone = $data['client_phone'];
+        $this->client_email = $data['client_email'];
+        $this->client_place = $data['client_place'];
+        $this->client_street = $data['client_street'];
         
         return $data;
     }
@@ -186,8 +235,8 @@ class Client extends DbClient {
     /**
      * @access public
      */
-    public function viewAllClients() {
-        return $this->client_db->viewAllClients();
+    public function viewAllClients($filter = 'client_name', $asc = 'ASC') {
+        return $this->client_db->viewAllClients($filter, $asc);
     }
 
 }

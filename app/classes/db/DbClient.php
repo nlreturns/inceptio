@@ -33,21 +33,27 @@ class DbClient extends Database {
      * @ParamType $client_address string
      * @ParamType $client_phone string
      */
-    public function addClient($client_name, $client_address, $client_phone, User $user_id) {
+    public function addClient($client_name, $client_address, $client_phone, User $user_id, $client_email, $client_place, $client_street) {
         //build query
         $query = "INSERT INTO  `inceptio`.`clients` (
                 `client_id` ,
                 `client_name` ,
                 `client_address` ,
                 `client_phone`,
-                `user_id`
+                `user_id`,
+                `client_email`,
+                `client_place`,
+                `client_street`
                 )
                   VALUES (
                 NULL, 
                 '" . mysql_real_escape_string($client_name) . "',
                 '" . mysql_real_escape_string($client_address) . "',
                 '" . mysql_real_escape_string($client_phone) . "',
-                '" . $user_id->getUserId() . "'
+                '" . $user_id->getUserId() . "',
+                '" . mysql_real_escape_string($client_email) . "',
+                '" . mysql_real_escape_string($client_place) . "',
+                '" . mysql_real_escape_string($client_street) . "'
                 );";
 
 
@@ -58,14 +64,20 @@ class DbClient extends Database {
                 `client_name` ,
                 `client_address` ,
                 `client_phone`,
-                `user_id`
+                `user_id`,
+                `client_email`,
+                `client_place`,
+                `client_street`
                 )
                   VALUES (
                 NULL, 
                 '" . mysql_real_escape_string($client_name) . "',
                 '" . mysql_real_escape_string($client_address) . "',
                 '" . mysql_real_escape_string($client_phone) . "',
-                NULL
+                NULL,
+                '" . mysql_real_escape_string($client_email) . "',
+                '" . mysql_real_escape_string($client_place) . "',
+                '" . mysql_real_escape_string($client_street) . "'
                 );";
         }
 
@@ -102,9 +114,9 @@ class DbClient extends Database {
      * @ParamType $client_address string
      * @ParamType $client_phone string
      */
-    public function editClient($client_id, $client_name, $client_address, $client_phone, User $user_id) {
+    public function editClient($client_id, $client_name, $client_address, $client_phone, $client_email, $client_place, $client_street) {
         //build query
-        $query = "UPDATE `clients` SET `client_name` = '" . $client_name . "', `client_address` = '" . $client_address . "', `client_phone` = '" . $client_phone . "', `user_id` = '" . $user_id->getUserId() . "' WHERE `clients`.`client_id` = " . $client_id . ";";
+        $query = "UPDATE `clients` SET `client_name` = '" . $client_name . "', `client_address` = '" . $client_address . "', `client_phone` = '" . $client_phone . "', `client_email` = '".$client_email."', `client_place` = '".$client_place."', `client_street` = '".$client_street."' WHERE `clients`.`client_id` = " . $client_id . ";";
 
         //execute query
         if (!$this->db->dbquery($query)) {
@@ -136,10 +148,10 @@ class DbClient extends Database {
     /**
      * @access public
      */
-    public function viewAllClients() {
+    public function viewAllClients($filter, $asc) {
         //build query
-        $query = "SELECT * FROM `clients`";
-
+        $query = "SELECT * FROM `clients` ORDER BY `clients`.`".$filter."` ".$asc;
+        
         // check for data
         if (!$this->db->dbquery($query)) {
             return false;

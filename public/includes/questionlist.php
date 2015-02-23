@@ -55,7 +55,7 @@ $questions = $question->viewAllQuestions();
         */
         td:nth-of-type(1):before { content: "Vraag"; }
         td:nth-of-type(2):before { content: "Uitleg"; }
-        td:nth-of-type(3):before { content: "Hoofdstuk"; }
+        td:nth-of-type(3):before { content: "Onderdeel"; }
         td:nth-of-type(4):before { content: "Acties"; }
     }
 </style>
@@ -70,7 +70,7 @@ $questions = $question->viewAllQuestions();
         <tr>
             <th>Vraag</th>
             <th>Uitleg</th>
-            <th>Hoofdstuk</th>
+            <th>Onderdeel</th>
             <th>Acties</th>
         </tr>
     </thead>

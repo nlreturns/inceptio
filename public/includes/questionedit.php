@@ -46,7 +46,7 @@ $chapters = $chapter->viewAllChapters();
 
     <div>
         <label class="desc" id="title106" for="Field106">
-            Hoofdstuk
+            Onderdeel
         </label>
         <div>
 

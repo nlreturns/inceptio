@@ -37,7 +37,12 @@ class Answer extends Report {
      * @AttributeType Scansysteem.DbAnswer
      */
     private $answer_db;
-
+    
+    /**
+     * @AttributeType int
+     */
+    private $answer_sub;
+    
     /**
      * @access public
      */
@@ -66,6 +71,28 @@ class Answer extends Report {
      */
     public function setAnswerId($answer_id) {
         $this->answer_id = $answer_id;
+    }
+    
+    /**
+     * @access public
+     */
+    public function getAnswerSub() {
+        if (isset($this->answer_sub)) {
+            return $this->answer_sub;
+        } else {
+            return "Not set";
+        }
+    }
+
+    /**
+     * @access public
+     * @param int answer_id
+     * @return void
+     * @ParamType answer_id int
+     * @ReturnType void
+     */
+    public function setAnswerSub($answer_sub) {
+        $this->answer_sub = $answer_sub;
     }
 
     /**
@@ -141,7 +168,7 @@ class Answer extends Report {
      * @access public
      */
     public function addAnswer() {
-        $this->answer_db->addAnswer($this->question_id, $this->answer_name, $this->answer_value);
+        $this->answer_db->addAnswer($this->question_id, $this->answer_name, $this->answer_value, $this->answer_sub);
     }
 
     /**
@@ -155,14 +182,21 @@ class Answer extends Report {
      * @access public
      */
     public function editAnswer() {
-        $this->answer_db->editAnswer($this->answer_id, $this->question_id, $this->answer_name, $this->answer_value);
+        $this->answer_db->editAnswer($this->answer_id, $this->question_id, $this->answer_name, $this->answer_value, $this->answer_sub);
     }
 
     /**
      * @access public
      */
     public function viewAnswer() {
-        return $this->answer_db->viewAnswer($this->answer_id);
+        $data = $this->answer_db->viewAnswer($this->answer_id);
+        
+        $this->answer_name = $data['answer_name'];
+        $this->answer_value = $data['answer_value'];
+        $this->question_id = $data['question_id'];
+        $this->answer_sub = $data['answer_sub'];
+        
+        return $data;
     }
 
     /**

@@ -12,36 +12,27 @@ $report = new Report;
 if (isset($_GET['delete'])) {
     // delete all related reports first
     $reports = $report->viewAllReports();
-
     foreach ($reports as $data) {
         if ($data['answer_id'] == $_GET['delete']) {
             $report->setReportId($data['report_id']);
             $report->deleteReport();
         }
     }
-
     $answer->setAnswerId($_GET['delete']);
-
     $answer->deleteAnswer();
 }
-
 // save Report to question
 if (isset($_POST['saveForm'])) {
     //set object data
     $report->setReportOutput($_POST['report_name']);
-
     $answer->setAnswerId($_GET['answer']);
     $answer->viewAnswer();
-
     $report->setAnswerId($_GET['answer']);
-
+    $report->setReportType($_POST['report_type']);
     //save report
     $report->addReport();
-
     echo "Rapport toegevoegt.";
 }
-
-
 
 $question->setQuestionId($_GET['id']);
 $data = $question->viewQuestion();
@@ -60,8 +51,9 @@ $reports = $report->viewAllReports();
         */
         td:nth-of-type(1):before { content: "Vraag"; }
         td:nth-of-type(2):before { content: "Uitleg"; }
-        td:nth-of-type(3):before { content: "Hoofdstuk"; }
+        td:nth-of-type(3):before { content: "Onderdeel"; }
         td:nth-of-type(4):before { content: "Antwoorden"; }
+        td:nth-of-type(5):before { content: "Sub-antwoorden"; }
     }
 </style>
 
@@ -70,8 +62,9 @@ $reports = $report->viewAllReports();
         <tr>
             <th>Vraag</th>
             <th>Uitleg</th>
-            <th>Hoofdstuk</th>
+            <th>Onderdeel</th>
             <th>Antwoorden</th>
+            <th>Sub-antwoorden</th>
         </tr>
     </thead>
     <tbody>
@@ -92,25 +85,58 @@ $reports = $report->viewAllReports();
                 <?php
                 foreach ($answers as $answer) {
                     if ($answer['question_id'] == $data['question_id']) {
-                        echo $answer['answer_name'];
+                        if ($answer['answer_sub'] == 0) {
+                            echo $answer['answer_name'];
 
-                        // check if answer has report
-                        $has_report = FALSE;
+                            // check if answer has report
+                            $has_report = FALSE;
 
-                        foreach ($reports as $report) {
-                            if ($report['answer_id'] == $answer['answer_id']) {
-                                echo " <a href='index.php?page=reportedit&id=" . $report['report_id'] . "'><button>Rapport aanpassen</button></a> ";
-                                $has_report = TRUE;
+                            foreach ($reports as $report) {
+                                if ($report['answer_id'] == $answer['answer_id']) {
+                                    echo " <a href='index.php?page=reportedit&id=" . $report['report_id'] . "'><button>Rapport aanpassen</button></a> ";
+                                    $has_report = TRUE;
+                                }
                             }
-                        }
 
-                        if ($has_report) {
-                            
-                        } else {
-                            echo " <a href='index.php?page=reportadd&id=" . $answer['answer_id'] . "'><button>Rapport toevoegen</button></a> ";
-                        }
+                            if ($has_report) {
+                                
+                            } else {
+                                echo " <a href='index.php?page=reportadd&id=" . $answer['answer_id'] . "'><button>Rapport toevoegen</button></a> ";
+                            }
 
-                        echo "<a href='index.php?page=questionview&id=" . $_GET['id'] . "&delete=" . $answer['answer_id'] . "'><button>Verwijderen</button></a> <br />";
+                            echo "<a href='index.php?page=answeradd&question=" . $data['question_id'] . "&id=" . $answer['answer_id'] . "'><button>Sub-antwoord toevoegen</button></a> ";
+
+                            echo "<a href='index.php?page=questionview&id=" . $_GET['id'] . "&delete=" . $answer['answer_id'] . "'><button>Verwijderen</button></a> <br />";
+                        }
+                    }
+                }
+                ?>
+            </td>
+            <td>
+                <?php
+                foreach ($answers as $answer) {
+                    if ($answer['question_id'] == $data['question_id']) {
+                        if ($answer['answer_sub'] != 0) {
+                            echo $answer['answer_name'];
+
+                            // check if answer has report
+                            $has_report = FALSE;
+
+                            foreach ($reports as $report) {
+                                if ($report['answer_id'] == $answer['answer_id']) {
+                                    echo " <a href='index.php?page=reportedit&id=" . $report['report_id'] . "'><button>Rapport aanpassen</button></a> ";
+                                    $has_report = TRUE;
+                                }
+                            }
+
+                            if ($has_report) {
+                                
+                            } else {
+                                echo " <a href='index.php?page=reportadd&id=" . $answer['answer_id'] . "'><button>Rapport toevoegen</button></a> ";
+                            }
+
+                            echo "<a href='index.php?page=questionview&id=" . $_GET['id'] . "&delete=" . $answer['answer_id'] . "'><button>Verwijderen</button></a> <br />";
+                        }
                     }
                 }
                 ?>
@@ -118,3 +144,6 @@ $reports = $report->viewAllReports();
         </tr>
     </tbody>
 </table>
+
+
+

@@ -44,6 +44,18 @@ class Survey extends DbSurvey {
      */
     private $chapters;
     
+    private $status;
+    
+    private $question_id;
+    
+    private $answer_id;
+    
+    private $report_id;
+    
+    private $comment;
+    
+    private $parent_id;
+    
 
     /**
      * @access public
@@ -63,6 +75,78 @@ class Survey extends DbSurvey {
         } else {
             return "Not set";
         }
+    }
+    
+    public function getQuestionId(){
+        if(isset($this->question_id)){
+            return $this->question_id;
+        }else{
+            return "Not set";
+        }
+    }
+    
+    public function getParentId(){
+        if (isset($this->parent_id)){
+            return $this->parent_id;
+        }else{
+            return "Not set";
+        }
+    }
+    
+    public function getStatus(){
+        if (isset($this->parent_id)){
+            return $this->parent_id;
+        }else{
+            return "Not set";
+        }
+    }
+    
+    public function setStatus($status){
+        $this->status = $status;
+    }
+    
+    public function setParentId($parent_id){
+        $this->parent_id = $parent_id;
+    }
+    
+    public function setQuestionId($question_id){
+        $this->question_id = $question_id;
+    }
+    
+    public function getAnswerId(){
+        if(isset($this->answer_id)){
+            return $this->answer_id;
+        }else{
+            return "Not set";
+        }
+    }
+    
+    public function setAnswerId($answer_id){
+        $this->answer_id = $answer_id;
+    }
+    
+    public function getReportId(){
+        if(isset($this->report_id)){
+            return $this->report_id;
+        }else{
+            return "";
+        }
+    }
+    
+    public function setReportId($report_id){
+        $this->report_id = $report_id;
+    }
+    
+    public function getComment(){
+        if(isset($this->comment)){
+            return $this->comment;
+        }else{
+            return "Not set";
+        }
+    }
+    
+    public function setComment($comment){
+        $this->comment = $comment;
     }
 
     /**
@@ -95,7 +179,8 @@ class Survey extends DbSurvey {
      * @ReturnType void
      */
     public function setChapters($chapters) {
-        $this->survey_id = json_encode($chapters);
+        $chapters = json_encode($chapters);
+        $this->chapters = $chapters;
     }
 
     /**
@@ -182,14 +267,20 @@ class Survey extends DbSurvey {
      * @access public
      */
     public function editSurvey() {
-        $this->survey_db->editSurvey($this->client_id, $this->survey_id, $this->author_id, $this->chapters);
+        $this->survey_db->editSurvey($this->client_id, $this->survey_id, $this->author_id, $this->chapters, $this->status);
     }
 
     /**
      * @access public
      */
     public function viewSurvey() {
-        return $this->survey_db->viewSurvey($this->survey_id);
+        $data = $this->survey_db->viewSurvey($this->survey_id);
+        $this->chapters = $data['survey_chapters'];
+        $this->author_id = $data['survey_author'];
+        $this->client_id = $data['survey_participant'];
+        $this->status = $data['survey_status'];
+        
+        return $data;
     }
 
     /**
@@ -197,6 +288,18 @@ class Survey extends DbSurvey {
      */
     public function viewAllSurveys() {
         return $this->survey_db->viewAllSurveys();
+    }
+    
+    public function saveSurvey(){
+        return $this->survey_db->saveSurvey($this->survey_id, $this->question_id, $this->answer_id, $this->report_id, $this->comment, $this->parent_id);
+    }
+    
+    
+    /*
+     * makes call to last inserted ID
+     */
+    public function getLastId(){
+        return $this->survey_db->getLastId();
     }
 
 }
