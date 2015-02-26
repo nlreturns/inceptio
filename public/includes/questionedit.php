@@ -31,6 +31,9 @@ $chapters = $chapter->viewAllChapters();
 
 <form action="index.php?page=questionedit&id=<?= $_GET['id'] ?>" method="post">
     <div>
+        <div><h1>Vraag aanpassen</h1></div>
+    </div>
+    <div>
         <label class="desc" id="title1" for="question_name">Vraag</label>
         <div>
             <input id="Field1" name="question_name" type="text" class="field text fn" value="<?= $question->getQuestionName(); ?>" size="8" tabindex="1">

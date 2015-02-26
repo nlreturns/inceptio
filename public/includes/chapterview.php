@@ -42,11 +42,14 @@ $questions = $question->viewAllQuestions();
                     <?php
                     foreach ($questions as $question) {
                         if ($question['chapter_id'] == $data['chapter_id']) {
-                            echo $question['question_name'] . "<a href='index.php?page=questionview&id=".$question['question_id']."'><button>Bekijken</button></a> <br />";
+                            echo $question['question_name'] . "<a href='index.php?page=questionview&id=".$question['question_id']."'><button>Bekijken</button></a> ";
+                            echo "<a href='index.php?page=questionedit&id=" . $question['question_id'] . "'><button>Aanpassen</button></a> <br />";
                         }
                     }
                     ?>
                 </td>
+                
+                    <a href="index.php?page=questionedit&id=<?= $question['question_id'] ?>"><button>Aanpassen</button></a> 
             </tr>
         </tbody>
     </table>

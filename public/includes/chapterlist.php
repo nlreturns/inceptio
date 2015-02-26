@@ -19,6 +19,15 @@ if(isset($_GET['delete'])){
 $chapters = $chapter->viewAllChapters();
 ?>
 
+<script type="text/javascript">
+    function deleteChapter(id) {
+        var password = prompt("U staat op het punt iets te verwijderen.\nGeef het wachtwoord op");
+        if (password === "abcdefgh") {
+            location.href = 'index.php?page=chapterlist&delete=' + id;
+        }
+    }
+</script>
+
 <style type="text/css">
     @media 
     only screen and (max-width: 760px),
@@ -54,7 +63,7 @@ $chapters = $chapter->viewAllChapters();
                 <td><?= $chapter['chapter_description']; ?></td>
                 <td>
                     <a href="index.php?page=chapteredit&id=<?= $chapter['chapter_id'] ?>"><button>Aanpassen</button></a> 
-                    <a href="index.php?page=chapterlist&delete=<?= $chapter['chapter_id'] ?>"><button>Verwijderen</button></a> 
+                    <button onclick="deleteChapter(<?= $chapter['chapter_id'] ?>)">Verwijderen</button> 
                     <a href="index.php?page=chapterview&id=<?= $chapter['chapter_id'] ?>"><button>Bekijken</button></a>
                 </td>
             </tr>

@@ -17,25 +17,25 @@ if (isset($_GET['delete'])) {
     $question->setQuestionId($_GET['delete']);
     // delete answers first
     $answers = $answer->viewAllAnswers();
-    foreach($answers as $answer){
-        if($answer['question_id'] == $_GET['delete']){
-            
+    foreach ($answers as $answer) {
+        if ($answer['question_id'] == $_GET['delete']) {
+
             // delete reports first
             $reports = $report->viewAllReports();
-            foreach($reports as $report){
-                if($report['answer_id'] == $answer['answer_id']){
+            foreach ($reports as $report) {
+                if ($report['answer_id'] == $answer['answer_id']) {
                     $delete_report = new Report;
                     $delete_report->setReportId($report['report_id']);
                     $delete_report->deleteReport();
                 }
             }
-            
+
             $delete = new Answer;
             $delete->setAnswerId($answer['answer_id']);
             $delete->deleteAnswer();
         }
     }
-    
+
     // delete question
     $question->deleteQuestion();
 
@@ -45,6 +45,15 @@ if (isset($_GET['delete'])) {
 $chapters = $chapter->viewAllChapters();
 $questions = $question->viewAllQuestions();
 ?>
+
+<script type="text/javascript">
+    function deleteQuestion(id) {
+        var password = prompt("U staat op het punt iets te verwijderen.\nGeef het wachtwoord op");
+        if (password === "abcdefgh") {
+            location.href = 'index.php?page=questionlist&delete=' + id;
+        }
+    }
+</script>
 
 <style type="text/css">
     @media 
@@ -89,14 +98,14 @@ $questions = $question->viewAllQuestions();
                         $has_chapter = TRUE;
                     }
                 }
-                if(!$has_chapter){
+                if (!$has_chapter) {
                     echo "<td>Geen hoofdstuk toegewezen</td>";
                 }
                 ?>
 
                 <td>
                     <a href="index.php?page=questionedit&id=<?= $question['question_id'] ?>"><button>Aanpassen</button></a> 
-                    <a href="index.php?page=questionlist&delete=<?= $question['question_id'] ?>"><button>Verwijderen</button></a> 
+                    <button onclick="deleteQuestion(<?= $question['question_id'] ?>)">Verwijderen</button> 
                     <a href="index.php?page=questionview&id=<?= $question['question_id'] ?>"><button>Bekijken</button></a>
                 </td>
             </tr>

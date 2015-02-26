@@ -27,7 +27,7 @@ $chapters = $chapter->viewAllChapters();
 $questions = $question->viewAllQuestions();
 ?>
 
-<form action="index.php?page=questionadd" method="post">
+<form action="index.php?page=questionadd<?php if(isset($_GET['chapter'])) { echo "&chapter=" . $_GET['chapter'];  } ?>" method="post">
     <div>
         <div><h1>Vraag aanmaken</h1></div>
     </div>

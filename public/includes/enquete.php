@@ -119,7 +119,11 @@ $survey_data['survey_chapters'] = substr($survey_data['survey_chapters'], 0, -1)
 $selected_chapters = json_decode($survey_data['survey_chapters']);
 
 if ($survey_data['survey_status'] != NULL) {
-    header('Location: index.php?page=enquetelist');
+    ?>
+    <script type="text/javascript">
+        window.location.href = 'index.php?page=enquetelist';
+    </script>
+    <?php
 } else {
     ?>
 
@@ -136,41 +140,41 @@ if ($survey_data['survey_status'] != NULL) {
     </script>
 
     <form action="index.php?page=enquete&id=<?= $_GET['id']; ?>" method="post">
-        <?php
-        foreach ($chapters as $chapter) {
+    <?php
+    foreach ($chapters as $chapter) {
 
-            foreach ($selected_chapters as $selected) {
-                if ($chapter['chapter_id'] == $selected) {
-                    echo "<div><div><h1>" . $chapter['chapter_name'] . "</h1></div></div>";
-                    echo "<div><div>" . $chapter['chapter_description'] . "</div></div><br />";
-                    $question_number = 1;
-                    foreach ($questions as $question) {
+        foreach ($selected_chapters as $selected) {
+            if ($chapter['chapter_id'] == $selected) {
+                echo "<div><div><h1>" . $chapter['chapter_name'] . "</h1></div></div>";
+                echo "<div><div>" . $chapter['chapter_description'] . "</div></div><br />";
+                $question_number = 1;
+                foreach ($questions as $question) {
 
-                        if ($chapter['chapter_id'] == $question['chapter_id']) {
-                            ?>
+                    if ($chapter['chapter_id'] == $question['chapter_id']) {
+                        ?>
                             <div>
                                 <div>
-                                    <?php echo $question_number . ". " . $question['question_name']; ?> 
+                        <?php echo $question_number . ". " . $question['question_name']; ?> 
                                     <button type="button" onclick="toggle_visibility('<?= $question['question_id'] ?>');">?</button>
                                     <div style="display: none" id='<?= $question['question_id'] ?>'><?= $question['question_help'] ?></div>
                                 </div>
 
                                 <div>
-                                    <?php
-                                    foreach ($answers as $answer) {
-                                        if ($answer['question_id'] == $question['question_id']) {
-                                            if ($answer['answer_sub'] == 0) {
-                                                ?>
+                        <?php
+                        foreach ($answers as $answer) {
+                            if ($answer['question_id'] == $question['question_id']) {
+                                if ($answer['answer_sub'] == 0) {
+                                    ?>
                                                 <input name="question[<?= $question['question_id'] ?>][question_id]" hidden value='<?= $question['question_id'] ?>'>
                                                 <input required name="question[<?= $question['question_id'] ?>][answer]" type="radio" value="<?= $answer['answer_id'] ?>">
-                                                <?php
-                                                echo "<label class='choice'>" . $answer['answer_name'] . "</label> &nbsp&nbsp&nbsp&nbsp&nbsp";
+                                    <?php
+                                    echo "<label class='choice'>" . $answer['answer_name'] . "</label> &nbsp&nbsp&nbsp&nbsp&nbsp";
 
-                                                foreach ($answers2 as $answer2) {
+                                    foreach ($answers2 as $answer2) {
 
-                                                    if ($answer['answer_id'] == $answer2['answer_sub']) {
-                                                        echo "<div style='margin-left: 20px'>";
-                                                        ?>
+                                        if ($answer['answer_id'] == $answer2['answer_sub']) {
+                                            echo "<div style='margin-left: 20px'>";
+                                            ?>
                                                         <input name="question[<?= $question['question_id'] ?>][sub_answer]['<?= $answer2['answer_id'] ?>']" type="checkbox" value="<?= $answer2['answer_id'] ?>"> <?php
                                                         echo "<label class='choice'>" . $answer2['answer_name'] . "</label> ";
                                                         echo "</div>";
@@ -183,21 +187,21 @@ if ($survey_data['survey_status'] != NULL) {
                                     }
                                     ?>
                                 </div>
-                                
+
                                 <div>
                                     <br />Opmerking: <input id="Field1" name="question[<?= $question['question_id']; ?>][comment]" type="text" class="field text fn" size="8" tabindex="1">
                                 </div>
                             </div>
                             <br /><br />
 
-                            <?php
-                            $question_number++;
-                        }
+                        <?php
+                        $question_number++;
                     }
                 }
             }
         }
-        ?>
+    }
+    ?>
 
         <div>
             <div>

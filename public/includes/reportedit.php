@@ -33,7 +33,9 @@ $data3 = $question->viewQuestion();
 
 
 <form action="index.php?page=reportedit&id=<?= $_GET['id'] ?>" method="post">
-
+    <div>
+        <div><h1>Rapport aanpassen</h1></div>
+    </div>
     <div>
         <label class="desc" id="title1">Geselecteerde vraag</label>
         <?= $data3['question_name']; ?><br />

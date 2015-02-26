@@ -33,6 +33,9 @@ $users = $user->viewAllUsers();
 
 <form action="index.php?page=clientedit&id=<?= $_GET['id'] ?>" method="post">
     <div>
+        <div><h1>Bedrijf aanpassen</h1></div>
+    </div>
+    <div>
         <label class="desc" id="title1" for="client_name">Bedrijfnaam</label>
         <div>
             <input id="Field1" name="client_name" type="text" class="field text fn" value="<?= $client->getClientName(); ?>" size="8" tabindex="1">

@@ -51,7 +51,7 @@ class DbSurvey extends Database {
                   VALUES (
                 NULL, 
                 '" . SURVEY_NAME . "',
-                '" . mysql_real_escape_string($author_id->getUserId()) . "',
+                '" . mysql_real_escape_string($author_id->getUserId(), $this->db->connection) . "',
                 '" . mysql_real_escape_string($client_id->getClientId()) . "',
                 '" . mysql_real_escape_string($chapters) . "'
                 );";
