@@ -204,8 +204,8 @@ class User extends DbUser {
     /**
      * @access public
      */
-    public function viewAllUsers() {
-        return $this->user_db->viewAllUsers();
+    public function viewAllUsers($page = 0, $limit = 30) {
+        return $this->user_db->viewAllUsers($page, $limit);
     }
 
     /*

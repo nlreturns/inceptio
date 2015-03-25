@@ -5,21 +5,22 @@
         <title>Inceptio</title>
         <link rel="stylesheet" href="style.css"/>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     </head>
     <body>
         <?php
         include_once '../app/Bootstrap.php';
         $bootstrap = new \inceptio\app\Bootstrap();
 
-        use inceptio\app\classes\User as User;
+use inceptio\app\classes\User as User;
 
-        $login = new User;
+$login = new User;
 
-        if (isset($_GET['logout'])){
+        if (isset($_GET['logout'])) {
             unset($_SESSION);
             session_destroy();
         }
-        
+
         if (isset($_POST['username']) && isset($_POST['password'])) {
             $login->setUserName($_POST['username']);
             $login->setUserPassword($_POST['password']);
@@ -36,15 +37,23 @@
             // header AKA menu
             ?>
             <div class="nav">
-                <ul>
-                    <li class="home"><a href="index.php">Home</a></li>
-                    <li class="tutorials"><a href="index.php?page=enquetelist">Analyse</a></li>
-                    <li class="tutorials"><a href="index.php?page=userlist">Gebruikers</a></li>
-                    <li class="about"><a href="index.php?page=clientlist">Bedrijven</a></li>
-                    <li class="news"><a href="index.php?page=chapterlist">Onderdelen</a></li>
-                    <li class="contact"><a href="index.php?page=questionlist">Vragen</a></li>
-                    <li><a href="index.php?logout">Uitloggen</a></li>
-                </ul>
+                <a href="http://inceptio-studentenbedrijf.nl/wordpress/home/" target="_blank">
+                    <div class="nav-logo">
+                        <img src="img/logo.png" alt="logo Inceptio">
+                        <img src="img/logo-ga.png" alt="logo Inceptio">
+                    </div>
+                </a>
+                <div class="nav-bar">
+                    <ul>
+                        <li class="home"><a href="index.php">Home</a></li>
+                        <li class="tutorials"><a href="index.php?page=enquetelist">Analyse</a></li>
+                        <li class="tutorials"><a href="index.php?page=userlist">Gebruikers</a></li>
+                        <li class="about"><a href="index.php?page=clientlist">Bedrijven</a></li>
+                        <li class="news"><a href="index.php?page=chapterlist">Onderdelen</a></li>
+                        <li class="contact"><a href="index.php?page=questionlist">Vragen</a></li>
+                        <li><a href="index.php?logout">Uitloggen</a></li>
+                    </ul>
+                </div>
             </div>
             <br />
             <?php

@@ -8,6 +8,12 @@ use inceptio\app\classes\Client as Client;
 $user = new User;
 $client = new Client;
 
+if(isset($_GET['number'])){
+    $page = $_GET['number'];
+}else{
+    $page = 0;
+}
+
 // if delete is called
 if (isset($_GET['delete'])) {
     // set id to delete
@@ -34,8 +40,15 @@ if (isset($_GET['toewijzen'])) {
 }
 
 
-$users = $user->viewAllUsers();
+$users = $user->viewAllUsers($page, 30);
 $clients = $client->viewAllClients();
+
+$nextpage = $page + 1;
+$prevpage = $page - 1;
+
+$allusers = $user->viewAllUsers(0, 1000000);
+
+$total = count($allusers);
 ?>
 
 <style type="text/css">
@@ -124,3 +137,14 @@ $clients = $client->viewAllClients();
         ?>
     </tbody>
 </table>
+<?php 
+if(isset($_GET['number']) && $_GET['number'] >= 1){
+?>
+<a style="color: black" href="index.php?page=userlist&number=<?= $prevpage; ?>"><i class="fa fa-caret-left fa-4x"></i></a>
+<?php }
+if($total > $nextpage * 30){
+?>
+<a style="color: black" href="index.php?page=userlist&number=<?= $nextpage; ?>"><i class="fa fa-caret-right fa-4x" style="float: right"></i></a>
+<?php
+}
+?>

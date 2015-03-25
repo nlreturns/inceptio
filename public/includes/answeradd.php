@@ -22,7 +22,7 @@ if (isset($_POST['saveForm'])) {
     //add answer
     $answer->addAnswer();
 
-    echo "Antwoord toegevoegt.";
+    echo "Antwoord toegevoegd.";
 }
 
 $questions = $question->viewAllQuestions();

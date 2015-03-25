@@ -18,7 +18,7 @@ if (isset($_POST['saveForm'])) {
     // add client
     $client->addClient();
 
-    echo "Bedrijf toegevoegt.";
+    echo "Bedrijf toegevoegd.";
 }
 
 $users = $user->viewAllUsers();

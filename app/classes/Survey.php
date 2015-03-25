@@ -286,8 +286,8 @@ class Survey extends DbSurvey {
     /**
      * @access public
      */
-    public function viewAllSurveys() {
-        return $this->survey_db->viewAllSurveys();
+    public function viewAllSurveys($page = 0, $limit = 30) {
+        return $this->survey_db->viewAllSurveys($page, $limit);
     }
     
     public function saveSurvey(){

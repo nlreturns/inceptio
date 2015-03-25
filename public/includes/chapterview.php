@@ -12,6 +12,15 @@ $data = $chapter->viewChapter();
 $questions = $question->viewAllQuestions();
 ?>
 
+<script type="text/javascript">
+    function deleteQuestion(id) {
+        var password = prompt("U staat op het punt iets te verwijderen.\nGeef het wachtwoord op");
+        if (password === "abcdefgh") {
+            location.href = 'index.php?page=questionlist&delete=' + id;
+        }
+    }
+</script>
+
 <style type="text/css">
     @media 
     only screen and (max-width: 760px),
@@ -43,6 +52,7 @@ $questions = $question->viewAllQuestions();
                     foreach ($questions as $question) {
                         if ($question['chapter_id'] == $data['chapter_id']) {
                             echo $question['question_name'] . "<a href='index.php?page=questionview&id=".$question['question_id']."'><button>Bekijken</button></a> ";
+                            echo "<button onclick='deleteQuestion(". $question['question_id'] .")'>Verwijderen</button>"; 
                             echo "<a href='index.php?page=questionedit&id=" . $question['question_id'] . "'><button>Aanpassen</button></a> <br />";
                         }
                     }

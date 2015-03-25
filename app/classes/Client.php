@@ -10,7 +10,7 @@ use inceptio\app\classes\db\DbClient as DbClient;
  * @author janwillem
  * @package Scansysteem
  */
-class Client extends DbClient {
+class Client {
 
     /**
      * @AttributeType int
@@ -235,8 +235,8 @@ class Client extends DbClient {
     /**
      * @access public
      */
-    public function viewAllClients($filter = 'client_name', $asc = 'ASC') {
-        return $this->client_db->viewAllClients($filter, $asc);
+    public function viewAllClients($page = 0, $limit = 30, $filter = 'client_name', $asc = 'ASC') {
+        return $this->client_db->viewAllClients($filter, $asc, $page, $limit);
     }
 
 }

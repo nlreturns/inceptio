@@ -20,7 +20,7 @@ if (isset($_POST['saveForm'])) {
     // add question
     $question->addQuestion();
 
-    echo "Vraag toegevoegt.";
+    echo "Vraag toegevoegd.";
 }
 
 $chapters = $chapter->viewAllChapters();

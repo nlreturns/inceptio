@@ -4,12 +4,17 @@ namespace inceptio\app\classes;
 
 use inceptio\app\classes\db\DbReport as DbReport;
 
+require_once "db/DbReport.php";
+
+//ini_set('display_errors', '0');     # don't show any errors...
+error_reporting(E_ALL | E_STRICT);  # ...but do log them
+
 /**
  * @access public
  * @author janwillem
  * @package Scansysteem
  */
-class Report extends DbReport {
+class Report{
 
     /**
      * @AttributeType int

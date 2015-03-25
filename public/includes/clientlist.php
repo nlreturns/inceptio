@@ -8,6 +8,12 @@ use inceptio\app\classes\Client as Client;
 $user = new User;
 $client = new Client;
 
+if(isset($_GET['number'])){
+    $page = $_GET['number'];
+}else{
+    $page = 0;
+}
+
 $asc = "asc";
 
 if(isset($_GET['asc'])){
@@ -25,10 +31,17 @@ if (isset($_GET['delete'])) {
     echo "Bedrijf is verwijderd";
 }
 if(isset($_GET['filter'])){
-    $clients = $client->viewAllClients($_GET['filter'], $_GET['asc']);
+    $clients = $client->viewAllClients($page, 30, $_GET['filter'], $_GET['asc']);
 }else{
-    $clients = $client->viewAllClients();
+    $clients = $client->viewAllClients($page, 30);
 }
+
+$nextpage = $page + 1;
+$prevpage = $page - 1;
+
+$allclients = $client->viewAllClients(0, 1000000);
+
+$total = count($allclients);
 ?>
 
 <style type="text/css">
@@ -57,12 +70,12 @@ if(isset($_GET['filter'])){
 <table>
     <thead>
         <tr>
-            <th>Bedrijfnaam <a href="index.php?page=clientlist&filter=client_name&asc=<?= $asc ?>"> <?php if($asc == 'asc'){ ?> <i class="fa fa-chevron-circle-up"></i> <?php }else{ ?> <i class="fa fa-chevron-circle-down"></i> <?php } ?></a></th>
-            <th>Postcode <a href="index.php?page=clientlist&filter=client_address&asc=<?= $asc ?>"> <?php if($asc == 'asc'){ ?> <i class="fa fa-chevron-circle-up"></i> <?php }else{ ?> <i class="fa fa-chevron-circle-down"></i> <?php } ?></a></th>
-            <th>Plaats <a href="index.php?page=clientlist&filter=client_place&asc=<?= $asc ?>"> <?php if($asc == 'asc'){ ?> <i class="fa fa-chevron-circle-up"></i> <?php }else{ ?> <i class="fa fa-chevron-circle-down"></i> <?php } ?></a></th>
-            <th>Straat <a href="index.php?page=clientlist&filter=client_street&asc=<?= $asc ?>"> <?php if($asc == 'asc'){ ?> <i class="fa fa-chevron-circle-up"></i> <?php }else{ ?> <i class="fa fa-chevron-circle-down"></i> <?php } ?></a></th>
-            <th>Telefoon <a href="index.php?page=clientlist&filter=client_phone&asc=<?= $asc ?>"> <?php if($asc == 'asc'){ ?> <i class="fa fa-chevron-circle-up"></i> <?php }else{ ?> <i class="fa fa-chevron-circle-down"></i> <?php } ?></a></th>
-            <th>Email <a href="index.php?page=clientlist&filter=client_email&asc=<?= $asc ?>"> <?php if($asc == 'asc'){ ?> <i class="fa fa-chevron-circle-up"></i> <?php }else{ ?> <i class="fa fa-chevron-circle-down"></i> <?php } ?></a></th>
+            <th>Bedrijfnaam <a href="index.php?page=clientlist&number=<?= $page ?>&filter=client_name&asc=<?= $asc ?>"> <?php if($asc == 'asc'){ ?> <i class="fa fa-chevron-circle-up"></i> <?php }else{ ?> <i class="fa fa-chevron-circle-down"></i> <?php } ?></a></th>
+            <th>Postcode <a href="index.php?page=clientlist&number=<?= $page ?>&filter=client_address&asc=<?= $asc ?>"> <?php if($asc == 'asc'){ ?> <i class="fa fa-chevron-circle-up"></i> <?php }else{ ?> <i class="fa fa-chevron-circle-down"></i> <?php } ?></a></th>
+            <th>Plaats <a href="index.php?page=clientlist&number=<?= $page ?>&filter=client_place&asc=<?= $asc ?>"> <?php if($asc == 'asc'){ ?> <i class="fa fa-chevron-circle-up"></i> <?php }else{ ?> <i class="fa fa-chevron-circle-down"></i> <?php } ?></a></th>
+            <th>Straat <a href="index.php?page=clientlist&number=<?= $page ?>&filter=client_street&asc=<?= $asc ?>"> <?php if($asc == 'asc'){ ?> <i class="fa fa-chevron-circle-up"></i> <?php }else{ ?> <i class="fa fa-chevron-circle-down"></i> <?php } ?></a></th>
+            <th>Telefoon <a href="index.php?page=clientlist&number=<?= $page ?>&filter=client_phone&asc=<?= $asc ?>"> <?php if($asc == 'asc'){ ?> <i class="fa fa-chevron-circle-up"></i> <?php }else{ ?> <i class="fa fa-chevron-circle-down"></i> <?php } ?></a></th>
+            <th>Email <a href="index.php?page=clientlist&number=<?= $page ?>&filter=client_email&asc=<?= $asc ?>"> <?php if($asc == 'asc'){ ?> <i class="fa fa-chevron-circle-up"></i> <?php }else{ ?> <i class="fa fa-chevron-circle-down"></i> <?php } ?></a></th>
             <!--<th>Gebruikersnaam</th>-->
             <th>Acties</th>
         </tr>
@@ -99,3 +112,24 @@ if(isset($_GET['filter'])){
         ?>
     </tbody>
 </table>
+<?php 
+    if(isset($_GET['filter'])){
+        $filter = $_GET['filter'];
+    }else{
+        $filter = "client_name";
+    }
+    if(isset($_GET['asc'])){
+        $test = $_GET['asc'];
+    }else{
+        $test = "asc";
+    }
+if(isset($_GET['number']) && $_GET['number'] >= 1){
+?>
+<a style="color: black" href="index.php?page=clientlist&number=<?= $prevpage; ?>&filter=<?= $filter ?>&asc=<?= $test ?>"><i class="fa fa-caret-left fa-4x"></i></a>
+<?php }
+if($total > $nextpage * 30){
+?>
+<a style="color: black" href="index.php?page=clientlist&number=<?= $nextpage; ?>&filter=<?= $filter ?>&asc=<?= $test ?>"><i class="fa fa-caret-right fa-4x" style="float: right"></i></a>
+<?php
+}
+?>

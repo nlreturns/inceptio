@@ -116,9 +116,14 @@ class DbUser extends Database {
     /**
      * @access public
      */
-    public function viewAllUsers() {
+    public function viewAllUsers($page, $limit) {
+        if($page == 0){
+            
+        }else{
+            $page *= 30;
+        }
         //build query
-        $query = "SELECT * FROM `users` ORDER BY `user_name` ASC";
+        $query = "SELECT * FROM `users` ORDER BY `user_name` ASC LIMIT " . $limit . " OFFSET " . $page;
         
         // check for data
         if (!$this->db->dbquery($query)) {

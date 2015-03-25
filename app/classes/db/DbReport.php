@@ -4,12 +4,13 @@ namespace inceptio\app\classes\db;
 
 use inceptio\app\classes\db\Database as Database;
 
+require_once 'Database.php';
 /**
  * @access public
  * @author janwillem
  * @package Scansysteem
  */
-class DbReport extends Database {
+class DbReport extends Database{
 
     /**
      * @AttributeType Scansysteem.Database

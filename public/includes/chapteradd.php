@@ -12,7 +12,7 @@ if (isset($_POST['saveForm'])) {
     // add chapter
     $chapter->addChapter();
 
-    echo "Onderdeel toegevoegt.";
+    echo "Onderdeel toegevoegd.";
 }
 
 $chapters = $chapter->viewAllChapters();

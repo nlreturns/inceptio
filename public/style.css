@@ -42,6 +42,8 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
     line-height: 1;
+    font-family: calibri, verdana, arial, sans-serif;
+    padding: 10px 10px 10px 10px !important;
 }
 ol, ul {
     list-style: none;
@@ -63,12 +65,18 @@ table {
 body {
     margin: 0;
     padding: 0;
-    background: #ccc;
+    background: #FFF;
+}
+
+.nav img{
+    float: left;
+    height: 50px;
+    background-color: #FFF;
 }
 
 .nav ul {
     list-style: none;
-    background-color: #444;
+    background-color: #ebebeb;
     text-align: center;
     padding: 0;
     margin: 0;
@@ -83,13 +91,14 @@ body {
 
 .nav a {
     text-decoration: none;
-    color: #fff;
+    color: #6d6e71;
     display: block;
     transition: .3s background-color;
 }
 
 .nav a:hover {
-    background-color: #005f5f;
+    background-color: #6D6E71;
+    color: #ffffff;
 }
 
 .nav a.active {

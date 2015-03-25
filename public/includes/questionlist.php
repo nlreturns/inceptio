@@ -12,6 +12,12 @@ $answer = new Answer;
 $chapter = new Chapter;
 $question = new Question;
 
+if(isset($_GET['number'])){
+    $page = $_GET['number'];
+}else{
+    $page = 0;
+}
+
 if (isset($_GET['delete'])) {
     // set id
     $question->setQuestionId($_GET['delete']);
@@ -43,7 +49,14 @@ if (isset($_GET['delete'])) {
 }
 
 $chapters = $chapter->viewAllChapters();
-$questions = $question->viewAllQuestions();
+$questions = $question->viewAllQuestions($page, 30);
+
+$nextpage = $page + 1;
+$prevpage = $page - 1;
+
+$allquestions = $question->viewAllQuestions(0, 1000000);
+
+$total = count($allquestions);
 ?>
 
 <script type="text/javascript">
@@ -116,3 +129,14 @@ $questions = $question->viewAllQuestions();
         ?>
     </tbody>
 </table>
+<?php 
+if(isset($_GET['number']) && $_GET['number'] >= 1){
+?>
+<a style="color: black" href="index.php?page=questionlist&number=<?= $prevpage; ?>"><i class="fa fa-caret-left fa-4x"></i></a>
+<?php }
+if($total > $nextpage * 30){
+?>
+<a style="color: black" href="index.php?page=questionlist&number=<?= $nextpage; ?>"><i class="fa fa-caret-right fa-4x" style="float: right"></i></a>
+<?php
+}
+?>

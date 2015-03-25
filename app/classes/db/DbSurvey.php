@@ -123,10 +123,15 @@ class DbSurvey extends Database {
     /**
      * @access public
      */
-    public function viewAllSurveys() {
+    public function viewAllSurveys($page, $limit) {
+        if($page == 0){
+            
+        }else{
+            $page *= 30;
+        }
         //build query
-        $query = "SELECT * FROM `surveys` ORDER BY `survey_name` ASC";
-
+        $query = "SELECT * FROM `surveys` ORDER BY `survey_name` ASC LIMIT " . $limit . " OFFSET " . $page;
+        
         // check for data
         if (!$this->db->dbquery($query)) {
             return false;

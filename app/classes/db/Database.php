@@ -15,6 +15,9 @@
 namespace inceptio\app\classes\db;
 use inceptio\app\classes\Error;
 
+require_once "/../Error.php";
+require_once "/../../config/db_constants.php";
+
 class Database {
 
     protected $connection;         //The MySQL database connection

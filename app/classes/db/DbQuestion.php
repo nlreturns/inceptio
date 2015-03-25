@@ -10,7 +10,7 @@ use inceptio\app\classes\db\Database as Database;
  * @author janwillem
  * @package Scansysteem
  */
-class DbQuestion extends Database {
+class DbQuestion extends Database{
 
     /**
      * @AttributeType Scansysteem.Database
@@ -113,9 +113,14 @@ class DbQuestion extends Database {
     /**
      * @access public
      */
-    public function viewAllQuestions() {
+    public function viewAllQuestions($page, $limit) {
+        if($page == 0){
+            
+        }else{
+            $page *= 30;
+        }
         //build query
-        $query = "SELECT * FROM `questions`";
+        $query = "SELECT * FROM `questions` LIMIT " . $limit . " OFFSET " . $page;
         
         // check for data
         if (!$this->db->dbquery($query)) {

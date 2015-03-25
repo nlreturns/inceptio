@@ -1,11 +1,16 @@
 <?php
-include_once 'Sample_Header.php';
 
-use inceptio\app\classes\Report;
+use inceptio\app\classes\Report as Report;
+
+require "../../app/classes/Report.php";
+require "../../libs/PhpWord/Autoloader.php";
+\PhpOffice\PhpWord\Autoloader::register();
+
+include_once "Sample_Header.php";
 
 $report = new Report;
 
-$report->setSurveyId($_GET['id']);
+$report->setSurveyId($_POST['id']);
 
 $reports = $report->viewFullReport();
 
@@ -53,3 +58,7 @@ echo write($phpWord, basename(__FILE__, '.php'), $writers);
 if (!CLI) {
     
 }
+?>
+<script>
+    window.open("http://inceptio-studentenbedrijf.nl/analyse/public/includes/results/download.docx", '_blank');
+</script>

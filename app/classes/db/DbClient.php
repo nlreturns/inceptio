@@ -148,9 +148,14 @@ class DbClient extends Database {
     /**
      * @access public
      */
-    public function viewAllClients($filter, $asc) {
+    public function viewAllClients($filter, $asc, $page, $limit) {
+        if($page == 0){
+            
+        }else{
+            $page *= 30;
+        }
         //build query
-        $query = "SELECT * FROM `clients` ORDER BY `clients`.`".$filter."` ".$asc;
+        $query = "SELECT * FROM `clients` ORDER BY `clients`.`".$filter."` ".$asc . " LIMIT " . $limit . " OFFSET " . $page;
         
         // check for data
         if (!$this->db->dbquery($query)) {

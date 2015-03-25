@@ -26,7 +26,7 @@ if (isset($_POST['saveForm'])) {
     
     $survey->addSurvey();
     
-    echo "Enquete toegevoegt";
+    echo "Analyse toegevoegd";
     
 }
 

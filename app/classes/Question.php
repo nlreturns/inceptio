@@ -180,8 +180,8 @@ class Question extends QuestionType {
     /**
      * @access public
      */
-    public function viewAllQuestions() {
-        return $this->question_db->viewAllQuestions();
+    public function viewAllQuestions($page = 0, $limit = 30) {
+        return $this->question_db->viewAllQuestions($page, $limit);
     }
 
 }

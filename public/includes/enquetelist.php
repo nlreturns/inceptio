@@ -10,11 +10,35 @@ $survey = new Survey;
 $user = new User;
 $client = new Client;
 
+if (isset($_GET['number'])) {
+    $page = $_GET['number'];
+} else {
+    $page = 0;
+}
 
-$surveys = $survey->viewAllSurveys();
+$surveys = $survey->viewAllSurveys($page, 30);
 $users = $user->viewAllUsers();
 $clients = $client->viewAllClients();
+
+$nextpage = $page + 1;
+$prevpage = $page - 1;
+
+$allsurveys = $survey->viewAllSurveys(0, 1000000);
+
+$total = count($allsurveys);
 ?>
+
+<script>
+    function download(id) {
+        $.post("includes/download.php",
+                {
+                    id: id
+                },
+        function(data) {
+            $('#result2').html(data);
+        });
+    }
+</script>
 
 <style type="text/css">
     @media 
@@ -82,7 +106,8 @@ $clients = $client->viewAllClients();
                         <a href="index.php?page=enquete&id=<?= $survey['survey_id'] ?>"><button>Starten</button></a>
                     <?php } else { ?>
                         <a href="index.php?page=reportview&id=<?= $survey['survey_id'] ?>"><button>Uitslag</button></a>
-                        <a href="index.php?page=enquetedownload&id=<?= $survey['survey_id'] ?>"><button>Downloaden</button></a>
+                        <button onclick="download(<?= $survey['survey_id'] ?>)" class="download">Downloaden</button>
+
                     <?php } ?>
                 </td>
             </tr>
@@ -93,3 +118,16 @@ $clients = $client->viewAllClients();
         ?>
     </tbody>
 </table>
+<?php
+if (isset($_GET['number']) && $_GET['number'] >= 1) {
+    ?>
+    <a style="color: black" href="index.php?page=enquetelist&number=<?= $prevpage; ?>"><i class="fa fa-caret-left fa-4x"></i></a>
+    <?php
+}
+if ($total > $nextpage * 30) {
+    ?>
+    <a style="color: black" href="index.php?page=enquetelist&number=<?= $nextpage; ?>"><i class="fa fa-caret-right fa-4x" style="float: right"></i></a>
+    <?php
+}
+?>
+<div id="result2"></div>
