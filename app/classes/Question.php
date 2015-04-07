@@ -139,7 +139,7 @@ class Question extends QuestionType {
         $this->questionType_id = $questionType_id;
     }
     
-    public function setChapterId(Chapter $chapter_id){
+    public function setChapterId($chapter_id){
         $this->chapter_id = $chapter_id;
     }
 
@@ -182,6 +182,14 @@ class Question extends QuestionType {
      */
     public function viewAllQuestions($page = 0, $limit = 30) {
         return $this->question_db->viewAllQuestions($page, $limit);
+    }
+    
+    public function moveUp($question_id){
+        $this->question_db->moveUp($question_id);
+    }
+    
+    public function moveDown($question_id){
+        $this->question_db->moveDown($question_id);
     }
 
 }
