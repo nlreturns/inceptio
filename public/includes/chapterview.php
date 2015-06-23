@@ -28,6 +28,8 @@ if(isset($_GET['up'])){
     }
 }
 
+$questions_mover = $question_mover->viewAllQuestions(0, 1000);
+
 if(isset($_GET['down'])){
     $question_mover->moveDown($_GET['down']);
     
@@ -83,17 +85,21 @@ $questions = $question->viewAllQuestions(0, 1000);
                 <td><?= $data['chapter_description']; ?></td>
                 <td>
                     <a href="index.php?page=questionadd&chapter=<?= $data['chapter_id']; ?>"><button>Vraag toevoegen</button></a> <br/>
+                    <table border="0">
                     <?php
                     foreach ($questions as $question) {
                         if ($question['chapter_id'] == $data['chapter_id']) {
-                            echo $question['question_position'] . " " . $question['question_name'] . "<a href='index.php?page=questionview&id=".$question['question_id']."'><button>Bekijken</button></a> ";
+                            echo "<tr><td>";
+                            echo $question['question_position'] . " " . $question['question_name'] . "</td><td><a href='index.php?page=questionview&id=".$question['question_id']."'><button>Bekijken</button></a> ";
                             echo "<button onclick='deleteQuestion(". $question['question_id'] .")'>Verwijderen</button>"; 
                             echo "<a href='index.php?page=questionedit&id=" . $question['question_id'] . "'><button>Aanpassen</button></a>";
                             echo "<a href='index.php?page=chapterview&id=" . $_GET['id'] . "&up=". $question['question_id'] ."'><button>Omhoog</button></a>";
                             echo "<a href='index.php?page=chapterview&id=" . $_GET['id'] . "&down=". $question['question_id'] ."'><button>Omlaag</button></a> <br />";
+                            echo "</td>";
                         }
                     }
                     ?>
+                    </table>
                 </td>
                 
                     <a href="index.php?page=questionedit&id=<?= $question['question_id'] ?>"><button>Aanpassen</button></a> 

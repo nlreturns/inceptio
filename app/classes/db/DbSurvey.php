@@ -51,7 +51,7 @@ class DbSurvey extends Database {
                   VALUES (
                 NULL, 
                 '" . SURVEY_NAME . "',
-                '" . mysql_real_escape_string($author_id->getUserId(), $this->db->connection) . "',
+                '" . mysql_real_escape_string($author_id->getUserId()) . "',
                 '" . mysql_real_escape_string($client_id->getClientId()) . "',
                 '" . mysql_real_escape_string($chapters) . "'
                 );";
@@ -70,6 +70,14 @@ class DbSurvey extends Database {
      * @ParamType $survey_id int
      */
     public function deleteSurvey($survey_id) {
+        $query = "DELETE FROM `survey_question_answer` WHERE survey_id = " . $survey_id;
+        var_dump($query);
+        if (!$this->db->dbquery($query)) {
+            
+        } else {
+            
+        }
+        
         //build query
         $query = "DELETE FROM `surveys` WHERE survey_id = " . $survey_id;
         //execute query

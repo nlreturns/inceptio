@@ -78,11 +78,11 @@ class Table extends AbstractElement
      * @param mixed $style
      * @return \PhpOffice\PhpWord\Element\Cell
      */
-    public function addCell($width = null, $style = null)
+    public function addCell($width = null, $style = null, $gridspan=1)
     {
         $index = count($this->rows) - 1;
         $row = $this->rows[$index];
-        $cell = $row->addCell($width, $style);
+        $cell = $row->addCell($width, $style, $gridspan);
 
         return $cell;
     }

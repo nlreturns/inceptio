@@ -17,7 +17,7 @@ $answer = new Answer;
 $report = new Report;
 
 $chapters = $chapter->viewAllChapters();
-$questions = $question->viewAllQuestions();
+$questions = $question->viewAllQuestions(0, 10000);
 $answers = $answer->viewAllAnswers();
 $answers2 = $answer->viewAllAnswers();
 $reports = $report->viewAllReports();

@@ -19,12 +19,7 @@ Autoloader::register();
 Settings::loadConfig();
 
 // Set writers
-$writers = array('Word2007' => 'docx', 'ODText' => 'odt', 'RTF' => 'rtf', 'HTML' => 'html', 'PDF' => 'pdf');
-
-// Set PDF renderer
-if (null === Settings::getPdfRendererPath()) {
-    $writers['PDF'] = null;
-}
+$writers = array('Word2007' => 'docx', 'ODText' => 'odt', 'RTF' => 'rtf');
 
 // Return to the caller script when runs by CLI
 if (CLI) {

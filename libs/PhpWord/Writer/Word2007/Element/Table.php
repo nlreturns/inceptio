@@ -151,6 +151,7 @@ class Table extends AbstractElement
         if ($cellStyle instanceof CellStyle) {
             $styleWriter = new CellStyleWriter($xmlWriter, $cellStyle);
             $styleWriter->setWidth($cell->getWidth());
+            $styleWriter->setGridspan($cell->getGridspan());
             $styleWriter->write();
         }
 

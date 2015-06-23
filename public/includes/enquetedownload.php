@@ -46,7 +46,6 @@ foreach($reports as $text){
     $section->addText(htmlspecialchars($text['answer_id']));
     $section->addText(htmlspecialchars($text['report_value'])); */
 }
-//$section->addText(htmlspecialchars('Hello World!'));
 
 // Save file
 echo write($phpWord, basename(__FILE__, '.php'), $writers);

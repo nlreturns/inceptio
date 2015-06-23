@@ -30,6 +30,11 @@ class Cell extends AbstractStyle
      * @var int Cell width
      */
     private $width;
+    
+    /**
+     * @var int gridspan
+     */
+    private $gridspan;
 
     /**
      * Write style.
@@ -51,6 +56,11 @@ class Cell extends AbstractStyle
         $xmlWriter->writeAttribute('w:w', $this->width);
         $xmlWriter->writeAttribute('w:type', 'dxa');
         $xmlWriter->endElement(); // w:tcW
+        
+        // Gridspan
+        $xmlWriter->startElement('w:gridSpan');
+        $xmlWriter->writeAttribute('w:val', $this->gridspan);
+        $xmlWriter->endElement(); // w:gridSpan
 
         // Text direction
         $textDir = $style->getTextDirection();
@@ -98,5 +108,15 @@ class Cell extends AbstractStyle
     public function setWidth($value = null)
     {
         $this->width = $value;
+    }
+    
+    /**
+     * Set gridspan
+     * 
+     * @param int $value
+     * @return void
+     */
+    public function setGridspan($value = 1){
+        $this->gridspan = $value;
     }
 }

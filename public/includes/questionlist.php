@@ -25,9 +25,11 @@ if (isset($_GET['delete'])) {
     $answers = $answer->viewAllAnswers();
     foreach ($answers as $answer) {
         if ($answer['question_id'] == $_GET['delete']) {
+            
+            $allreports = new Report;
 
             // delete reports first
-            $reports = $report->viewAllReports();
+            $reports = $allreports->viewAllReports();
             foreach ($reports as $report) {
                 if ($report['answer_id'] == $answer['answer_id']) {
                     $delete_report = new Report;

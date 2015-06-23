@@ -82,12 +82,14 @@ $reports = $report->viewAllReports();
             </td>
             <td>
                 <a href="index.php?page=answeradd&question=<?= $data['question_id']; ?>"><button>Antwoord toevoegen</button></a><br />
+                <table>
                 <?php
                 foreach ($answers as $answer) {
                     if ($answer['question_id'] == $data['question_id']) {
                         if ($answer['answer_sub'] == 0) {
+                            echo "<tr><td>";
                             echo $answer['answer_name'];
-
+                            echo "</td><td>";
                             // check if answer has report
                             $has_report = FALSE;
 
@@ -107,18 +109,26 @@ $reports = $report->viewAllReports();
                             echo "<a href='index.php?page=answeradd&question=" . $data['question_id'] . "&id=" . $answer['answer_id'] . "'><button>Sub-antwoord toevoegen</button></a> ";
 
                             echo "<a href='index.php?page=questionview&id=" . $_GET['id'] . "&delete=" . $answer['answer_id'] . "'><button>Verwijderen</button></a> <br />";
+                        
+                            echo "</td></tr>";
                         }
                     }
                 }
                 ?>
+                </table>
             </td>
             <td>
+                <table>
                 <?php
                 foreach ($answers as $answer) {
                     if ($answer['question_id'] == $data['question_id']) {
                         if ($answer['answer_sub'] != 0) {
+                            echo "<tr><td>";
+                            
                             echo $answer['answer_name'];
-
+                            
+                            echo "</td><td>";
+                            
                             // check if answer has report
                             $has_report = FALSE;
 
@@ -136,10 +146,13 @@ $reports = $report->viewAllReports();
                             }
 
                             echo "<a href='index.php?page=questionview&id=" . $_GET['id'] . "&delete=" . $answer['answer_id'] . "'><button>Verwijderen</button></a> <br />";
+                            
+                            echo "</td></tr>";
                         }
                     }
                 }
                 ?>
+                </table>
             </td>
         </tr>
     </tbody>

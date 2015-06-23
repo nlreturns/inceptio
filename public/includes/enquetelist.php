@@ -16,6 +16,11 @@ if (isset($_GET['number'])) {
     $page = 0;
 }
 
+if(isset($_GET['delete'])){
+    $survey->setSurveyId($_GET['delete']);
+    $survey->deleteSurvey();
+}
+
 $surveys = $survey->viewAllSurveys($page, 30);
 $users = $user->viewAllUsers();
 $clients = $client->viewAllClients();
@@ -104,10 +109,12 @@ $total = count($allsurveys);
                 <td>
                     <?php if ($survey['survey_status'] == NULL) { ?>
                         <a href="index.php?page=enquete&id=<?= $survey['survey_id'] ?>"><button>Starten</button></a>
+                        <a href="index.php?page=enquetelist&delete=<?= $survey['survey_id'] ?>"><button>Verwijderen</button></a>
+
                     <?php } else { ?>
                         <a href="index.php?page=reportview&id=<?= $survey['survey_id'] ?>"><button>Uitslag</button></a>
                         <button onclick="download(<?= $survey['survey_id'] ?>)" class="download">Downloaden</button>
-
+                        <a href="index.php?page=enquetelist&delete=<?= $survey['survey_id'] ?>"><button>Verwijderen</button></a>
                     <?php } ?>
                 </td>
             </tr>

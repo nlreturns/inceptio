@@ -42,6 +42,13 @@ class Cell extends AbstractContainer
      * @var \PhpOffice\PhpWord\Style\Cell
      */
     private $style;
+    
+    /**
+     * Cell gridspan
+     * 
+     * @var int
+     */
+    private $gridspan;
 
     /**
      * Create new instance
@@ -49,10 +56,11 @@ class Cell extends AbstractContainer
      * @param int $width
      * @param array|\PhpOffice\PhpWord\Style\Cell $style
      */
-    public function __construct($width = null, $style = null)
+    public function __construct($width = null, $style = null, $gridspan=1)
     {
         $this->width = $width;
         $this->style = $this->setNewStyle(new CellStyle(), $style, true);
+        $this->gridspan = $gridspan;
     }
 
     /**
@@ -73,5 +81,14 @@ class Cell extends AbstractContainer
     public function getWidth()
     {
         return $this->width;
+    }
+    
+    /**
+     * Get gridspan
+     * 
+     * @return int
+     */
+    public function getGridspan(){
+        return $this->gridspan;
     }
 }
